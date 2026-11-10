@@ -1,8 +1,3 @@
----
-name: api-endpoint
-description: Generate REST API endpoints for the OctoCAT Supply Chain application following established patterns. Use this skill when creating new CRUD endpoints, adding routes, implementing repository classes, or defining TypeScript models with Swagger documentation. Triggers on requests to add API features, create endpoints, implement data access layers, or extend the Express.js backend.
----
-
 # API Endpoint Development
 
 This skill guides the creation of REST API endpoints following the OctoCAT Supply Chain application's established patterns.
