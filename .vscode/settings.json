@@ -1,5 +1,9 @@
 {
     "github.copilot.enable": {
         "markdown": true
+    },
+    "search.exclude": {
+        "labs/**": true,
+        "**/node_modules": true
     }
 }

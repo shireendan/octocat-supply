@@ -1,29 +1,46 @@
-# 🚀 OctoCAT Supply: The Ultimate GitHub Copilot Demo v3.7.0
+# OctoCAT Supply · PGGM Innovation Day
+
+This repo has two parts: [labs/](./labs/) contains the hands-on exercises; everything else is the OctoCAT Supply app you'll work on.
+
+## Start here
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1)
+
+1. Sign in with the GitHub account that has your Copilot license, then open the link above.
+2. The link creates your codespace the first time and resumes it on later visits.
+3. Wait for setup (`make install && make build`) to finish, then open the [labs index](./labs/README.md).
+
+## Supported environments
+
+- **GitHub Codespaces (recommended):** use the link above.
+- **This repo's dev container on your own machine:** use VS Code, Docker and the Dev Containers extension. Open the repo in VS Code and choose **Reopen in Container**.
+
+Only these environments are supported on the day. The Ubuntu-based container provides Node.js 24/npm, Python, the Azure and GitHub CLIs, and VS Code extensions including Copilot. It installs dependencies, builds the app and forwards **3000** (API) and **5137** (website).
+
+## Branches
+
+- **`workshop`:** where you work during the labs.
+- **`main`:** the complete app and reference solution you'll compare with. Never commit to `main`.
+
+## What's where
+
+| Folder | Contents |
+|---|---|
+| [labs/](./labs/) | Hands-on workshop exercises |
+| [api/](./api/) | Express REST API and SQLite database |
+| [frontend/](./frontend/) | React website |
+| [docs/](./docs/) | Architecture, database, build and deployment guides |
+| [infra/](./infra/) | Infrastructure and deployment scripts |
+| [demo/](./demo/) | walkthroughs from the original sample |
+| [.github/](./.github/) | Copilot and GitHub configuration |
+| [.devcontainer/](./.devcontainer/) | Shared Codespaces and dev container setup |
+| [.vscode/](./.vscode/) | VS Code tasks, debug and workspace configuration |
+
+## The app
 
 ![OctoCAT Supply](./frontend/public/hero.png)
 
-Welcome to the OctoCAT Supply Website - your go-to demo for showcasing the incredible capabilities of GitHub Copilot, GHAS, and the power of AI-assisted development!
-
-## [!NOTE] For the Hands on Demo, follow the step-by-step instructions in [Zero-to-Agents Hands-on Lab](./demo/walkthroughs/general/demo-steps.md).
-
-> (Optional) Additional Demos can be found at [Demo Walkthroughs](./demo/walkthroughs/README.md).
-
-## ✨ What Makes This Demo Special
-
-This isn't just another demo app - it's a carefully crafted showcase that demonstrates the full spectrum of GitHub's AI capabilities:
-
-- 🤖 **Copilot Agent Mode & Vision** - Watch Copilot understand UI designs and implement complex features across multiple files
-- 🎭 **MCP Server Integration** - Demonstrate extended capabilities with Playwright for testing and GitHub API integration
-- 🧪 **Test Generation** - Exhibit Copilot's ability to analyze coverage and generate meaningful tests
-- 🔄 **CI/CD & IaC** - Generate deployment workflows and infrastructure code with natural language
-- 🎯 **Custom Instructions** - Show how Copilot can be tailored to understand internal frameworks and standards
-- 📜 **Custom Prompt Files** - Automate repetitive tasks and documentation updates with ease
-
----
-
-## 🏗️ Architecture
-
-The application is built using modern TypeScript with a clean separation of concerns:
+OctoCAT Supply is a sample supply chain management app for managing products, suppliers, branches, orders and deliveries. Its React website uses an Express API backed by SQLite, with Swagger documentation for exploring the API.
 
 ```mermaid
 erDiagram
@@ -36,114 +53,65 @@ erDiagram
     Supplier ||--o{ Delivery: provides
 ```
 
-### Tech Stack
+**Tech stack**
 
-- **Frontend**: React 18+, TypeScript, Tailwind CSS, Vite
+- **Frontend:** React 18, TypeScript, Tailwind CSS and Vite.
+- **Backend:** Express.js, TypeScript and OpenAPI/Swagger.
+- **Data:** SQLite; file-backed for the app and in-memory for tests.
+- **DevOps:** Docker.
 
-- **Backend**: Express.js, TypeScript, SQLite, OpenAPI/Swagger
+## Run the app
 
-- **Data**: SQLite (file db at `api/data/app.db`; in-memory for tests)
-- **DevOps**: Docker
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-
-
-- Node.js 18+ and npm
-
-- Make
-
-### Quick Start
-
-1. Clone this repository
-
-2. Install dependencies:
-
-   ```bash
-   make install
-   ```
-
-3. Start the development environment:
-
-   ```bash
-   make dev
-   ```
-
-This will start both the API server (on port 3000) and the frontend development server (on port 5173).
-
-### Available Make Commands
-
-View all available commands:
+Run commands from the repo root in your codespace or dev container:
 
 ```bash
-make help
+make dev
 ```
 
-Key commands:
+In a codespace, open the **Ports** tab and open the forwarded ports:
+- **3000:** API; add `/api-docs` to the forwarded URL for Swagger.
+- **5137:** website.
 
-- `make dev` - Start both API and frontend development servers
-- `make dev-api` - Start only the API server
-- `make dev-frontend` - Start only the frontend server
-- `make build` - Build both API and frontend for production
-- `make db-init` - Initialize database schema
-- `make db-seed` - Seed database with sample data
-- `make test` - Run all tests
-- `make clean` - Clean build artifacts and dependencies
+Stop the servers with **Ctrl+C**.
 
-### Database Management
+| Command | Purpose |
+|---|---|
+| `make dev` | Start the API and website |
+| `make dev-api` | Start only the API |
+| `make dev-frontend` | Start only the website |
+| `make test` | Start the API test watcher; press **q** to quit; see the limitation below |
+| `make help` | List available Make targets |
+| `make install` | Install dependencies (already done during setup) |
+| `make build` | Build the API and website |
+| `make db-init` | Apply pending database migrations |
+| `make db-seed` | Apply migrations and seed sample data |
+| `make clean` | Remove build outputs, dependencies and database files at the API folder root |
 
-Initialize the database explicitly (migrations + seed):
+`make test` is not a working full-suite command: after the API tests, it calls a frontend `test` script that is not defined.
 
+**Database commands**
+
+npm equivalents (migrations, then sample data):
 ```bash
-make db-init
+cd api
+npm run db:migrate
+npm run db:seed
+cd ..
 ```
 
-Seed data only:
+The default database is `api/data/app.db` (override with `DB_FILE`). WAL mode and foreign keys default to enabled (`DB_ENABLE_WAL` and `DB_FOREIGN_KEYS`).
 
-```bash
-make db-seed
-```
+**VS Code tasks**
 
+Use **Tasks: Run Task** in the Command Palette, then **Build All**, **Build API** or **Build Frontend**. The **Start API & Frontend** debug configuration calls a root npm script that is not defined; use `make dev` instead.
 
-Or use npm scripts directly in the API directory:
+## Docs
 
-```bash
-cd api && npm run db:migrate  # Run migrations only
-cd api && npm run db:seed     # Seed data only
-```
+- [Architecture](./docs/architecture.md)
+- [SQLite integration](./docs/sqlite-integration.md)
+- [Build and test guide](./docs/build.md)
+- [Deployment](./docs/deployment.md)
 
+## Credits
 
-### VS Code Integration
-
-You can also use VS Code tasks and launch configurations:
-
-- `Cmd/Ctrl + Shift + P` -> `Run Task` -> `Build All`
-- Use the Debug panel to run `Start API & Frontend`
-
-## 🛠️ MCP Server Setup (Optional)
-
-To showcase extended capabilities:
-
-1. Install Docker/Podman for the GitHub MCP server
-2. Use VS Code command palette:
-   - `MCP: List servers` -> `playwright` -> `Start server`
-   - `MCP: List servers` -> `github` -> `Start server`
-3. Configure with a GitHub PAT (required for GitHub MCP server)
-
-## 📚 Documentation
-
-- [Detailed Architecture](./docs/architecture.md)
-- [SQLite Integration](./docs/sqlite-integration.md)
-- [Complete Demo Script](./demo/walkthroughs/README.md)
-
-Database defaults and env vars:
-
-- DB file: `api/data/app.db` (override with `DB_FILE=/absolute/path/to/file.db`)
-- Enable WAL: `DB_ENABLE_WAL=true` (default)
-- Foreign keys: `DB_FOREIGN_KEYS=true` (default)
-
----
-
-*This entire project, including the hero image, was created using AI and GitHub Copilot! Even this README was generated by Copilot using the project documentation.* 🤖✨
+Based on [OctoCAT Supply (Azure-Samples)](https://github.com/Azure-Samples/octocat-supply), version **v3.7.0** of the sample.
