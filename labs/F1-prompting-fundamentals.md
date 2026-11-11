@@ -4,6 +4,12 @@
 
 ⏱ **30 minutes** · Part 1: 8 · Part 2: 5 · Part 3: 10 · Part 4: 7
 
+## What will you do?
+
+Build a small feature in an unfamiliar application: count the orders belonging to a branch and expose that count through the API. Then plan a separate cart feature without building it.
+
+**Why it matters:** onboarding and feature work mix questions, small edits and wider changes. This lab helps you choose the right Copilot tool, give it useful context and review the result instead of delegating blindly.
+
 **Your story:** you have just joined the OctoCAT team. Your first ticket is *"Show how many orders each branch has."* You have never seen this repo before.
 
 **You'll practise:** Ask (understand) → code completion and inline chat (write) → Agent (build) → Plan (think first).
@@ -13,6 +19,25 @@
 - You have read a Plan for a cart.
 
 > **Role tip:** not a TypeScript person? You won't write code by hand. Copilot writes it; you describe, review and verify.
+
+## New words
+                                                                        
+**Ask**, **Plan** and **Agent** are different ways of working, not interchangeable labels:
+
+| Choice | What it's for in this lab |
+|---|---|
+| **Ask** | Understand the repo and locate relevant files without edits (Part 1). |
+| **Plan** | Research and propose steps before implementation; here, only plan the cart (Part 4). |
+| **Agent** | Make coordinated file changes; here, add the endpoint and Swagger docs within your prompt's boundaries (Part 3). |
+
+
+- **Code completion**: Predict the next code as you type; accept suggestions for the counting method (Part 2).
+- **Inline chat**: Request a focused change to selected code, such as a short comment (Part 2).
+- **Prompt**: is the request you give Copilot. A vague request leaves it guessing. The improved prompt adds **context** (your role), **intent** (your goal), **clarity** (a direct task) and **specificity** (scope and an output limit). Judge the difference by the usefulness of the answer, not the prompt's length.
+
+## Before you start
+
+Complete the [setup checks](01-setup.md). Follow Parts 1–4 in order, run commands only when the sheet asks, and review changes before choosing **Keep**.
 
 ---
 

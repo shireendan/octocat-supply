@@ -2,6 +2,14 @@
 
 [Labs index](README.md) · [Previous](F2-build-your-personal-agent.md) · [Next](F4-mcp-and-spec-driven.md)
 
+## What will you do?
+
+Teach Copilot how this team works: restore repository instructions for the fictional TAO standard, repair the API skill's discovery header, then use that skill to add branch-owned delivery vehicles, including API operations and tests.
+
+**Why it matters:** knowing a framework isn't the same as knowing your team's standards. Context engineering puts the right project knowledge in reach instead of repeating it in every prompt. [Microsoft Learn: why customize Copilot?](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/2-examine-benefits-customize-github-copilot)
+
+**Your story:** a branch manager asks you to track delivery vehicles in OctoCAT. Your team already has TAO logging guidance and an API checklist. You want Copilot to find and follow them, not invent its own approach.
+
 Two parts:
 - **Part A (⏱ 25 min):** teach Copilot your team's rules with `.github/copilot-instructions.md`.
 - **Part B (⏱ 27 min):** repair a **skill**, then let it build a whole feature.
@@ -9,6 +17,25 @@ Two parts:
 **Missing on your branch:**
 1. `.github/copilot-instructions.md` was deleted.
 2. [.github/skills/api-endpoint/SKILL.md](../.github/skills/api-endpoint/SKILL.md) still has its body (the **how**) but lost its header (the **when**).
+
+## New words
+
+| Term | What it means in this lab |
+|---|---|
+| **[Repository instructions](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/3-customize-copilot-responses-instruction-files)** | Standing team rules for chats in this repo; for example, which logging convention to follow. |
+| **[Skill](https://code.visualstudio.com/docs/agent-customization/agent-skills)** | A reusable task workflow with instructions and supporting files, loaded when relevant. Here: how to add an API entity correctly. |
+| **Frontmatter** | The `---` header with `name` and `description`: metadata for discovering when a skill applies. Its body explains how. |
+| **[Custom agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | A role and tool permissions: who does the work, rather than the workflow they can load. |
+| **CRUD** | Create, read, update and delete: the operations you'll add for delivery vehicles. |
+| **[TAO](../docs/tao.md)** | A fictional logging/metrics standard for the before/after comparison, not a package to install. |
+
+**The key distinction:** instructions set rules, a skill packages a repeatable process, and an agent supplies the role and tools.
+
+Links are optional official references; follow the exercises below for the workshop's UI.
+
+## Before you start
+
+Complete the [setup checks](01-setup.md) and stay on `workshop`. Use fresh chats where requested so you compare instructions, not old conversation history.
 
 ---
 

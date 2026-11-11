@@ -4,6 +4,8 @@
 
 ⏱ **27 minutes** · Part 1, MCP setup: 8 · Part 2, spec-driven development: 19
 
+## What will you do?
+
 **The story:** a branch manager wants to see all orders for their branch. OctoCAT's API can list *all* orders, or one order by ID, but not the orders for one branch. You'll:
 1. connect Copilot to **Microsoft Learn** with MCP, and pull in REST API guidance;
 2. let OctoCAT's **tdd-planner** agent write the **spec**: acceptance criteria, plus a test for each;
@@ -11,10 +13,31 @@
 4. let **tdd-red** write failing tests, then **tdd-green** write just enough code to pass them;
 5. **verify** by running the tests yourself.
 
+**Why it matters:** agents can execute a plan; you still own its decisions and the evidence that it works.
+
+**Your story:** you're shipping the branch manager's request. You need to choose sensible edge-case behaviour and prove the delivered endpoint matches those decisions, not just accept an agent's "done" message.
+
 **Missing on your branch:** nothing. You *add* a knowledge source and a feature.
 **Done when:** the tests pass, every acceptance criterion in your plan has a test, and the new endpoint shows up in Swagger.
 
 > **Why spec and tests first?** In F1 you saw that Copilot is probabilistic. A spec you own says *what* to build; tests turn it into a finish line the agent can check itself. You get proof instead of a feeling.
+
+## New words
+
+| Term | What it means in this lab |
+|---|---|
+| **[MCP](https://learn.microsoft.com/en-us/training/support/mcp)** | Model Context Protocol: a standard way for an agent to use external tools and data. Here: Microsoft Learn documentation. |
+| **[Tool call / approval](https://learn.microsoft.com/en-us/training/support/mcp-get-started)** | A requested action, such as a documentation search. You decide whether to allow it. |
+| **Specification / spec** | Written behaviour and constraints, agreed before implementation. |
+| **Acceptance criteria** | Observable conditions defining success; in this lab, each must have a test. |
+| **[TDD: red / green](https://learn.microsoft.com/en-us/visualstudio/test/quick-start-test-driven-development-with-test-explorer?view=visualstudio)** | Test-driven development: write a failing test, then just enough code to make it pass. |
+| **[Pagination](https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design)** | Return results in pages instead of one unbounded list; a design choice to discuss before building. |
+
+Links are optional background; some examples use other languages or IDEs. Follow this lab's steps.
+
+## Before you start
+
+Complete the [setup checks](01-setup.md), then follow the cleanup and chat instructions below.
 
 > **Before you start:** if `.github/copilot-instructions.md` still has the TAO team rule from F3, delete those lines. TAO is made up, so code that uses it can't run, and in this lab the agents write real code.
 

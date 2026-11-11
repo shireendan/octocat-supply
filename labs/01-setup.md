@@ -1,65 +1,76 @@
-# Setup: open your codespace (do this before F1)
+# Setup: get ready for the labs
 
-⏱ About 10 minutes, ideally during the 09:00 opening.
+Welcome! Before F1, let's open your workspace, check that OctoCAT runs and make sure Copilot is ready.
 
-## 1. Create your codespace
-1. Open this link (you need to be signed in to GitHub with the account your Copilot licence is on):
-   **https://codespaces.new/shireendan/octocat-supply/tree/workshop**
-2. Keep branch `workshop` and choose a machine with at least **4 cores and 8 GB RAM**, then choose **Create codespace**.
-3. The first start takes a few minutes, because it installs and builds the app for you. Wait until the terminal shows that `make install && make build` has finished.
+## 1. Open your codespace
 
-> To come back later, use **https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1** or open github.com/codespaces.
-> The codespace opens in your browser. If you prefer VS Code on your laptop, that works too.
+A **codespace** gives you VS Code, this repo and its tools in the cloud, accessible through your browser.
 
-## 2. Check that you're on the `workshop` branch
-The status bar (bottom left) shows `workshop`. You can also check in the terminal:
-```bash
-git branch --show-current
-```
+1. Use the GitHub account with your Copilot licence to [open this repo in Codespaces](https://codespaces.new/shireendan/octocat-supply/tree/workshop).
+2. Keep branch `workshop`, choose at least **4 cores and 8 GB RAM**, then select **Create codespace**.
+3. Wait for `make install && make build` to finish installing dependencies and building the app.
+4. Confirm the status bar shows `workshop`, or run `git branch --show-current` in the terminal.
 
-## 3. Get the answer key (once)
-```bash
-git fetch origin main
-```
+Returning? Use the [resume link](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1) or [your codespaces](https://github.com/codespaces). Browser and desktop VS Code both work.
 
-## 4. Check that the app runs
-1. In the terminal:
+## 2. Check that the app runs
+
+The **API** handles OctoCAT's business records. **Swagger** is its interactive documentation, where you can try operations in your browser.
+
+1. In the repo root, run:
    ```bash
    make dev-api
    ```
 2. Wait for `Database initialized successfully` and `Server is running on port 3000`.
-3. Open the **Ports** tab → port **3000** → open it in the browser → add **`/api-docs`** to the end of the URL.
-   You should see the Swagger page with sections such as *Branches* and *Orders*.
+3. In **Ports**, open **3000**, then add **`/api-docs`** to the browser URL. Look for *Branches* and *Orders* in Swagger.
 4. Stop the server with **Ctrl+C**.
 
-Optional: `make dev` starts the API **and** the website (port **5137**). The dev container forwards both ports.
+Optional: `make dev` also starts the website on port **5137**. Open it through Ports; stop with **Ctrl+C**.
 
-## 5. Check Copilot
-1. Open the **Chat** view (the Copilot icon at the top or in the side bar).
-2. At the bottom of the Chat view, find:
-   - the **agent picker** (Ask / Agent / Plan);
-   - the **model picker** (keep the default unless your facilitator says otherwise).
-3. Choose **Ask** and type `hi`. You should get an answer.
-4. If the chat shows a session type (for example "Copilot"), keep the default.
+## 3. Check Copilot
 
-## 6. Compare and catch up (you'll use these in every lab)
+Copilot is your AI assistant in VS Code. Check that Chat responds before starting the labs.
+
+1. Open **Chat** using the Copilot icon.
+2. Start a new chat, click **+**, then **Agent...**, then **Ask** to ask questions without editing files.
+3. Send `hi` and check that Copilot replies.
+4. Keep the default **model** and **session type** unless your facilitator says otherwise.
+
+For the labs:
+- **Agent** opens by default in a new chat and can edit files and run tools.
+- **Plan** uses a separate control: click the **message icon at the bottom of Chat**, then choose **Plan**.
+
+## 4. Get the reference files
+
+Fetch once for local compare/catch-up commands; viewing `main` on GitHub needs no fetch, and fetching leaves your working files unchanged:
+
+```bash
+git fetch origin main
+```
+
+Use these when a lab asks; replace `<file>` with its path. **Catch up overwrites that file's edits; save a copy first.**
+
 | I want to… | Do this |
 |---|---|
-| See the original of a file | On GitHub, switch to branch **`main`** and open the file. Or: `git show origin/main:<file>` |
+| View a reference file | `git show origin/main:<file>` (or view it on GitHub's `main` branch) |
 | Compare a file I **edited** | `git diff origin/main -- <file>` |
 | Compare a file I **re-created** | `git add <file>` then `git diff origin/main -- <file>` |
 | Compare side by side | `git show origin/main:<file> > /tmp/ref.md && code --diff /tmp/ref.md <file>` |
-| Catch up (take the original) | `git checkout origin/main -- <file>` |
+| Catch up (take the reference version) | `git checkout origin/main -- <file>` |
 
-## 7. Ground rules
-- Don't commit or push unless a lab tells you to; all work stays in your codespace.
-- Always review what an agent changed before you click **Keep**. **Undo** is always available.
-- The repo's Copilot hooks write `.agent.log` (session events and prompts) and `.agent-audit/<sessionId>/session-start.json` and `session-stop.json` (audit snapshots). Ignore these files. Automatic checkpoint commits are disabled.
+## 5. Ground rules
+
+- Work on `workshop`. Don't commit or push unless a lab tells you to.
+- Review the agent's changes before clicking **Keep**; use **Undo** to reject them.
+- Ignore the generated `.agent.log` and `.agent-audit/` logs. Automatic checkpoint commits are disabled.
 
 ## Troubleshooting
+
 | Problem | Try |
 |---|---|
 | Port 3000 isn't listed | Run `make dev-api` again and wait for `Server is running on port 3000` |
 | The browser shows 502 on port 3000 | The server isn't up yet: wait 10 seconds and refresh |
 | Chat says you have no access | Tell your facilitator: your Copilot licence may be on another account |
 | Everything feels slow | The first build may still be running: check the terminal |
+
+Checks passed? Continue to [F1: Prompting Fundamentals](F1-prompting-fundamentals.md). Otherwise, raise your hand.

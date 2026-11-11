@@ -2,12 +2,38 @@
 
 [Labs index](README.md) · [Previous](F1-prompting-fundamentals.md) · [Next](F3-context-engineering.md)
 
+## What will you do?
+
+Build two focused AI teammates: an API Specialist for this project and a personal, read-only reviewer for your area. You'll compare a plan before and after customization, then check whether your reviewer respects its limits.
+
+**Why it matters:** repeating your team's rules in every prompt is easy to get wrong. Custom agents make roles and boundaries reusable, visible and reviewable. [Microsoft Learn: why customize Copilot?](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/2-examine-benefits-customize-github-copilot)
+
+**Your story:** OctoCAT needs a Cart API, and you've been asked for a plan that follows the team's conventions. You also want a reviewer for your daily work, but one that can only advise, not change your files.
+
 Two parts:
 - **Part A (⏱ 25 min):** rebuild the team's **API Specialist**, a *workspace* agent shared through the repo.
 - **Part B (⏱ 20 min):** build **My Reviewer**, a *personal*, read-only agent for your own daily work.
 
 **Missing on your branch:** `.github/agents/api-specialist.agent.md`. The 10 other agents in that folder are untouched, so have a look at them.
 **Done when:** the agent picker shows your **API Specialist** and your **my-reviewer**.
+
+## New words
+
+| Term | What it means in this lab |
+|---|---|
+| **[Custom agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | A named role with saved instructions and tool permissions, not a newly trained model. |
+| **[Workspace agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | Stored in the repo's [agent folder](../.github/agents/); versioned and shared through Git. Here: API Specialist. |
+| **[User / personal agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | Stored in your editor profile, not the repo. In Codespaces, that's your codespace profile. Here: My Reviewer. |
+| **[Frontmatter](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#agent-frontmatter-fields)** | The `---` header declaring the name, description and tools. The Markdown body below it holds the instructions. |
+| **[Tools / guardrails](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#define-agent-capabilities-with-tools)** | The capabilities available to the agent. A `read`/`search`-only list leaves out editing and terminal access. |
+
+**The key distinction:** instructions guide behaviour; tool permissions limit available actions. Asking an agent not to edit is different from removing its edit tool.
+
+Links are optional Microsoft Learn references; follow the exercises below for the workshop's UI.
+
+## Before you start
+
+Complete the [setup checks](01-setup.md). Keep the same model for the before/after comparison so you can focus on what the agent configuration changes.
 
 ---
 
