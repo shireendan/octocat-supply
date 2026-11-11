@@ -9,9 +9,23 @@ A **codespace** gives you VS Code, this repo and its tools in the cloud, accessi
 1. Use the GitHub account with your Copilot licence to [open this repo in Codespaces](https://codespaces.new/shireendan/octocat-supply/tree/workshop).
 2. Keep branch `workshop`, choose at least **4 cores and 8 GB RAM**, then select **Create codespace**.
 3. Wait for `make install && make build` to finish installing dependencies and building the app.
-4. Confirm the status bar shows `workshop`, or run `git branch --show-current` in the terminal.
+4. Confirm the status bar shows `workshop`, or run `git branch --show-current` in the terminal. If `workshop` isn't listed, follow [branch recovery](#recovery-workshop-branch-missing).
 
 Returning? Use the [resume link](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1) or [your codespaces](https://github.com/codespaces). Browser and desktop VS Code both work.
+
+## Recovery: workshop branch missing
+
+Already on `workshop`? Skip this recovery section.
+
+`origin` is the usual name for the GitHub remote. In the **Codespace terminal**, run `git remote get-url origin`. Only if it reports **No such remote** and `git status --short` is empty, run:
+
+```bash
+git remote add origin https://github.com/shireendan/octocat-supply.git
+git fetch origin
+git switch --track origin/workshop
+```
+
+If `origin` exists, there are local changes, or the switch fails, ask a facilitator. Don't replace a remote or force the switch.
 
 ## 2. Check that the app runs
 
@@ -68,6 +82,7 @@ Use these when a lab asks; replace `<file>` with its path. **Catch up overwrites
 
 | Problem | Try |
 |---|---|
+| Only `main` is listed / no `origin` | See [branch recovery](#recovery-workshop-branch-missing). |
 | Port 3000 isn't listed | Run `make dev-api` again and wait for `Server is running on port 3000` |
 | The browser shows 502 on port 3000 | The server isn't up yet: wait 10 seconds and refresh |
 | Chat says you have no access | Tell your facilitator: your Copilot licence may be on another account |
