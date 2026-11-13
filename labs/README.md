@@ -6,7 +6,7 @@ You don't need to know this application or be a TypeScript specialist. Whatever 
 
 [Back to the repo README](../README.md) for environments and app commands.
 
-**Jump to:** [The application](#meet-octocat-supply) | [Schedule](#schedule) | [How the labs work](#how-the-labs-work) | [Conventions](#conventions-in-the-lab-sheets) | [Getting help](#stuck)
+**Jump to:** [The application](#meet-octocat-supply) | [Setup options](#before-you-begin) | [Schedule](#schedule) | [How the labs work](#how-the-labs-work) | [Conventions](#conventions-in-the-lab-sheets) | [Getting help](#stuck)
 
 ## Meet OctoCAT Supply
 
@@ -36,7 +36,16 @@ These are deliberately small, understandable requests. The challenge is learning
 
 ## Before you begin
 
-1. Follow [01-setup.md](01-setup.md) before F1. It covers the codespace, the `workshop` branch, getting the reference files, checking the app and Copilot, and troubleshooting.
+**Codespaces is recommended, not required.** Choose an environment and complete its checks before the training:
+
+| Environment | What you need | Setup |
+|---|---|---|
+| **GitHub Codespaces (recommended)** | A GitHub account with repo access, a Copilot license and Codespaces access | [Codespaces setup](01-setup.md#option-a-github-codespaces-recommended) |
+| **Local Node.js and npm (Windows)** | VS Code, Git, Node.js 24.x (npm included), repo access and a Copilot license; no Docker or `make` required | [Local setup](01-setup.md#option-b-local-nodejs-and-npm-windows) |
+
+Both options cover the same labs. Codespaces prepares the tools automatically; local users install dependencies and build with npm, then run the API and website in two PowerShell terminals. Follow your option's setup and app checks before the training. If installation permissions, enterprise network restrictions or time prevent a working setup, contact IT or ask about pairing with someone whose environment is ready.
+
+1. Follow [01-setup.md](01-setup.md) before F1. It covers your environment, the `workshop` branch, getting the reference files, checking the app and Copilot, and troubleshooting.
 2. Keep the current lab sheet open next to your workspace. On GitHub, use a second browser tab so you can copy prompts and commands. In VS Code, right-click the lab file and choose **Open Preview** for the formatted view.
 3. Read the opening story and completion checks before starting each lab. They explain what you're trying to achieve; the numbered steps then guide you through it.
 
@@ -46,7 +55,7 @@ Each session includes an introduction, hands-on work and a wrap-up. The shorter 
 
 | Time | Session | Why this session matters | Lab sheet |
 |---|---|---|---|
-| Before 09:45 | Set up your codespace | Make sure the app and Copilot work before the exercises begin. | [01-setup.md](01-setup.md) |
+| Before 09:45 | Set up your workspace | Make sure the app and Copilot work before the exercises begin. | [01-setup.md](01-setup.md) |
 | 09:45–10:45 | F1. Prompting Fundamentals | Learn the repo, improve a prompt and choose the right way to work with Copilot. | [F1-prompting-fundamentals.md](F1-prompting-fundamentals.md) |
 | 11:00–12:15 | F2. Build Your Personal Agent | Give an agent a focused role and boundaries, including a reviewer that cannot edit files. | [F2-build-your-personal-agent.md](F2-build-your-personal-agent.md) |
 | 13:00–14:30 | F3. Context Engineering in Practice | Make the team's knowledge and working practices reusable through instructions and a skill. | [F3-context-engineering.md](F3-context-engineering.md) |
@@ -87,10 +96,12 @@ Copilot is **probabilistic**: the same request can produce different wording, fi
 Not every grey code block belongs in the same place. Read the sentence above it:
 
 - **"Send" or "ask Copilot":** paste the text into **Chat** as a prompt.
-- **"Run in the terminal":** run the command in your codespace or dev container terminal. Unless a step says otherwise, start from the repository root.
+- **"Run in the terminal":** use your Codespaces terminal, or local PowerShell with the [command equivalents](01-setup.md#local-windows-equivalents-for-lab-commands) instead of `make`. Unless a step says otherwise, start from the repository root.
 - **"Create", "replace" or "paste into a file":** edit the named file. A Markdown or JSON example is file content, not a terminal command.
 
 The code-block copy button saves typing; it doesn't decide where the text should go.
+
+When a lab says **Ports** then **3000**, local users open http://localhost:3000/api-docs for Swagger instead. The local website is at http://localhost:5137; you do not need a public Codespaces URL.
 
 ### Labels and controls you'll see
 
@@ -122,7 +133,8 @@ A different answer from your neighbour is not automatically a problem. First che
 
 | Situation | Useful next step |
 |---|---|
-| The codespace, Copilot sign-in or app won't start | Open the troubleshooting section in [01-setup.md](01-setup.md) and ask a facilitator if it persists. |
+| The codespace or local workspace, Copilot sign-in or app won't start | Open the [setup troubleshooting](01-setup.md#troubleshooting) and ask a facilitator if it persists. |
+| Codespaces is unavailable or local software installation is restricted | Check the [environment options](01-setup.md#1-choose-your-environment) with a facilitator. If none can be ready in time, ask about pairing with someone who has a working setup. |
 | A menu or agent isn't available as described | Check that lab's fallback instructions. UI labels and available controls can vary; don't spend the session hunting for a button. |
 | The agent edited more than you requested | Stop it, review the affected changes and ask for help if you're unsure what to undo. Don't accept unrelated edits to keep moving. |
 | The output looks different but seems reasonable | Check the stated requirements and evidence. Discuss the differences instead of trying to reproduce someone else's exact output. |
