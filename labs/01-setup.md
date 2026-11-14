@@ -2,7 +2,7 @@
 
 Welcome! Before F1, let's open your workspace, check that OctoCAT runs and make sure Copilot is ready.
 
-**Choose Codespaces or local Node.js/npm.** Codespaces is recommended, not mandatory. Both options cover the same labs; complete the app and Copilot checks before the training rather than spending lab time on installation.
+**Choose Codespaces or native Windows Node.js/npm on a laptop or Windows DevBox.** Codespaces is recommended, not mandatory. Both options cover the same labs; complete the app and Copilot checks before the training rather than spending lab time on installation.
 
 Both options require access to this repo and a GitHub account with a working Copilot licence. Local setup also requires permission to install the tools and download packages. If installation or enterprise network restrictions prevent setup, contact IT or ask a facilitator about pairing with someone who has a working environment.
 
@@ -23,9 +23,11 @@ Returning? Use the [resume link](https://codespaces.new/shireendan/octocat-suppl
 
 ### Option B: Local Node.js and npm (Windows)
 
-Run directly on your Windows computer in a normal local VS Code window, not a remote devbox. **No Docker or Make is needed.** The lab sheets use `make` shortcuts for Codespaces; use the [local command equivalents](#local-windows-equivalents-for-lab-commands) when following them.
+Run Node/npm directly in Windows on either your **laptop or Windows DevBox**, with VS Code running on that same machine. A DevBox is a development computer and can use this native Windows setup. The lab sheets use `make` shortcuts for Codespaces; use the [local command equivalents](#local-windows-equivalents-for-lab-commands) when following them.
 
-1. Install [VS Code](https://code.visualstudio.com/), [Git](https://git-scm.com/downloads) and **Node.js 24.x**. npm comes with Node.js; it does not need a separate installer. If you already have Node.js, check its version in the next step before deciding whether to install it.
+**Shared baseline:** use the latest **Node.js 24.x** release and the committed dependency lockfiles. The locked SQLite connector contains native code, so Node versions are not automatically interchangeable.
+
+1. Install [VS Code](https://code.visualstudio.com/), [Git](https://git-scm.com/downloads) and the latest **Node.js 24.x** release. npm comes with Node.js; it does not need a separate installer. If you already have Node.js, check its version in the next step before deciding whether to install it.
 
    For Node.js, use the [official Node.js 24 downloads](https://nodejs.org/download/release/latest-v24.x/), choose the Windows `.msi` for your computer's architecture, and leave npm and **Add to PATH** enabled. Do not assume the installer labelled "latest LTS" is still version 24.
 2. Fully close and reopen VS Code after installation, then open a new PowerShell terminal.
@@ -44,7 +46,12 @@ Run directly on your Windows computer in a normal local VS Code window, not a re
    code .
    ```
    Already cloned? Open that folder in VS Code instead; do not clone over it or discard existing changes. All remaining local commands start from the **repo root**, the folder containing `api` and `frontend`, unless stated otherwise.
-4. In VS Code, choose **Terminal > New Terminal** and use PowerShell. Stop any running app servers before reinstalling dependencies. Run these commands **one at a time**, resolving any error before moving to the next:
+4. In VS Code, choose **Terminal > New Terminal** and use PowerShell. **Before npm installation**, prepare certificate trust if this managed machine needs company certificates or reports `unable to get local issuer certificate`. If your organisation's approved certificates are already trusted by Windows, run:
+   ```powershell
+   $env:NODE_USE_SYSTEM_CA = "1"
+   ```
+   This uses Windows' trusted certificates without disabling HTTPS verification. It applies only to this terminal and its child processes; repeat in a new terminal when needed. It does not overwrite existing `NODE_OPTIONS`. Unaffected Windows machines can skip this step, and it is not a Codespaces requirement. If errors persist, follow [enterprise certificate trust](#enterprise-certificate-trust) before continuing.
+5. In that same terminal, stop any running app servers before reinstalling dependencies. Run these commands **one at a time**, resolving any error before moving to the next:
    ```powershell
    npm.cmd --prefix .\api ci --include=optional
    npm.cmd --prefix .\frontend ci --include=optional
@@ -52,8 +59,9 @@ Run directly on your Windows computer in a normal local VS Code window, not a re
    npm.cmd --prefix .\frontend run build
    ```
 
-   `--prefix` selects the project without changing folders. `ci` replaces its installed dependencies using the locked versions, and `--include=optional` includes platform-specific packages such as Rollup. Your source files and lockfiles are unchanged. This clean install also replaces incompatible packages left from another operating system; do not copy installed dependencies between Windows and Linux.
-5. Install or enable **GitHub Copilot** in VS Code and sign in with the account that has your Copilot licence. Continue with the app and Copilot checks below.
+   `--prefix` selects the project without changing folders. `ci` replaces its installed dependencies using the locked versions, and `--include=optional` includes platform-specific packages such as Rollup. Your source files and lockfiles are unchanged. This clean install also replaces incompatible packages left from another operating system.
+
+6. Install or enable **GitHub Copilot** in VS Code and sign in with the account that has your Copilot licence. Continue with the app and Copilot checks below.
 
 No separate database server or `.env` file is needed for the default local app. The API initializes and seeds its SQLite database automatically when started.
 
@@ -99,6 +107,8 @@ If you only need the API for a lab, use `make dev-api` instead of `make dev`.
 
 ### Local Node.js and npm
 
+Use PowerShell and a browser on the same Windows laptop or DevBox. If the app runs on a remote DevBox, open the URLs in that DevBox's browser, not your laptop's browser; `localhost` refers to the machine where the browser runs.
+
 1. In **Terminal 1**, at the repo root, start the API:
    ```powershell
    npm.cmd --prefix .\api run dev
@@ -129,13 +139,19 @@ Run these from the repo root. When a lab says **Ports** then **3000**, use http:
 | `make test-api` | `npm.cmd --prefix .\api test` |
 | `make lint` | `npm.cmd --prefix .\api run lint`, then `npm.cmd --prefix .\frontend run lint` |
 
-API tests watch for changes; press **q** to quit. For a single run, use:
+The labs verify API features using the API test suite. Tests watch for changes; press **q** to quit. For a single run, which is also preferable when an agent runs tests, use:
+
+**Codespaces:**
+
+```bash
+npm --prefix api test -- --run
+```
+
+**Windows PowerShell:**
 
 ```powershell
 npm.cmd --prefix .\api test -- --run
 ```
-
-When a lab asks for `make test`, use the API test command for its API exercise. `make test` is not a working full-suite command: after the API watcher exits, it calls a frontend `test` script that is not defined.
 
 The initial local setup uses `ci` for a clean install from the lockfiles. Use `install` when deliberately changing dependencies, so the matching lockfile is updated.
 
@@ -196,8 +212,9 @@ code --diff $reference <file>
 | PowerShell says `npm.ps1` cannot be loaded | Use `npm.cmd` as shown above; do not change the execution policy. |
 | Dependency installation or a build fails locally | Check that `node --version` reports 24.x, keep the full error, and ask a facilitator before continuing. Do not ignore a failed install or reuse Linux-installed dependencies on Windows. |
 | Rollup's platform package is missing or SQLite reports `invalid ELF header` | Stop the servers and repeat the local `ci --include=optional` commands in [Option B](#option-b-local-nodejs-and-npm-windows). In Codespaces, run `npm ci --include=optional` from the affected project's directory. Do not delete the lockfiles or share installed dependencies between operating systems. |
-| SQLite installation reports `node-gyp`, Python or Visual Studio build errors | A compatible prebuilt binary may be unavailable, requiring native build tools. Keep the full error and ask your facilitator or IT for the approved tools; the app itself is Node.js/TypeScript. |
-| npm reports SSL/TLS, proxy or certificate errors | Local npm still needs approved package-registry access. Ask IT to check the proxy, certificates or internal package mirror. Do not disable certificate checks or bypass organisation policies. |
+| SQLite installation reports `node-gyp`, Python or Visual Studio build errors | A prebuilt binary may be unavailable or its download may have failed. Fix certificate/download errors first. If compilation is still needed, ask your facilitator or IT for approved Windows Python and C++ build tools. Python installed only in WSL is not automatically usable by Windows npm. |
+| npm reports `unable to get local issuer certificate`, SSL/TLS or proxy errors | Follow [enterprise certificate trust](#enterprise-certificate-trust), then ask IT to check any remaining CA-chain, proxy or package-mirror requirements. Changing Node versions or installing Python does not fix certificate trust. |
+| npm warns that the Node engine is unsupported | Check the [Node 24 baseline](#option-b-local-nodejs-and-npm-windows) with a facilitator. Do not change dependencies or remove lockfiles just to suppress the warning. |
 | `npm ci` reports a missing or out-of-sync lockfile | Check that you opened the intended `workshop` checkout. Keep the lockfiles and share the full error with a facilitator; use `npm install` only when intentionally updating dependencies. |
 | Only `main` is listed / no `origin` | See [branch recovery](#recovery-workshop-branch-missing). |
 | Port 3000 isn't listed in Codespaces | Start the API using the command for your environment and wait for `Server is running on port 3000`. Local users open http://localhost:3000/api-docs directly. |
@@ -206,6 +223,39 @@ code --diff $reference <file>
 | Port 3000 or 5137 is already in use | Stop your earlier dev server with **Ctrl+C** in its terminal before restarting. Ask a facilitator if another application owns the port. |
 | Chat says you have no access | Tell your facilitator: your Copilot licence may be on another account |
 | Everything feels slow | The first build may still be running: check the terminal |
+
+### Optional: version details for setup support
+
+If a facilitator asks you to compare working setups, run these from the repo root in PowerShell after dependencies have installed successfully:
+
+```powershell
+node --version
+npm.cmd --version
+npm.cmd --prefix .\api ls better-sqlite3
+```
+
+These commands only display the installed Node.js, npm and Node-to-SQLite connector versions; they do not change anything. Share the output when troubleshooting with a facilitator. You do not need to record it for normal setup.
+
+### Enterprise certificate trust
+
+This guidance is for **native Windows Node/npm on a managed laptop or DevBox**, not a blanket prerequisite for all participants or for Codespaces.
+
+`unable to get local issuer certificate` means Node cannot verify a download's certificate chain. A company proxy or HTTPS-inspection service may use a certificate authority (CA) already trusted by Windows but not by Node's default certificate bundle. It is a trust-configuration problem, not proof that the download is deliberately blocked.
+
+Start with the `NODE_USE_SYSTEM_CA` setting in [Option B, step 4](#option-b-local-nodejs-and-npm-windows). It is supported in Node.js **24.6.0 and newer 24.x releases**, so use the latest 24.x installer. The setting adds Windows' trusted CAs to Node's existing trust roots, keeps HTTPS verification enabled, and leaves `NODE_OPTIONS` unchanged. It affects only Node processes started from that PowerShell terminal and their children; new terminals do not inherit it from another terminal.
+
+If the error remains, ask IT to check the approved certificate chain and proxy configuration for the **failing download host**. npm packages, SQLite's prebuilt binaries and Node's build headers can use different hosts, so registry access alone does not establish that every required download works.
+
+If IT provides a PEM-format CA bundle, use its actual file path. For example, from the repo root in the same PowerShell terminal:
+
+```powershell
+$env:NODE_EXTRA_CA_CERTS = "C:\certs\company-ca-bundle.pem"
+npm.cmd --prefix .\api ci --include=optional
+```
+
+The path above is an example, not a file included in this repo. Use only the approved bundle supplied by IT. Node reads it when a new process starts, and it can be used alongside `NODE_USE_SYSTEM_CA`. Follow IT's proxy or internal-mirror instructions where required; do not disable certificate verification or bypass organisation controls.
+
+Fixing trust does not guarantee that an unsupported Node/dependency combination will build. Python only enables a native-build fallback, which may itself need HTTPS downloads. See [Node.js enterprise network configuration](https://nodejs.org/learn/http/enterprise-network-configuration) for background.
 
 ### Node.js installed but not recognised in PowerShell
 

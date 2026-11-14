@@ -41,9 +41,15 @@ These are deliberately small, understandable requests. The challenge is learning
 | Environment | What you need | Setup |
 |---|---|---|
 | **GitHub Codespaces (recommended)** | A GitHub account with repo access, a Copilot license and Codespaces access | [Codespaces setup](01-setup.md#option-a-github-codespaces-recommended) |
-| **Local Node.js and npm (Windows)** | VS Code, Git, Node.js 24.x (npm included), repo access and a Copilot license; no Docker or `make` required | [Local setup](01-setup.md#option-b-local-nodejs-and-npm-windows) |
+| **Native Windows Node.js and npm (laptop or DevBox)** | VS Code, Git, the latest Node.js 24.x release (npm included), repo access and a Copilot license; no Docker or `make` required | [Windows setup](01-setup.md#option-b-local-nodejs-and-npm-windows) |
 
-Both options cover the same labs. Codespaces prepares the tools automatically; local users install dependencies and build with npm, then run the API and website in two PowerShell terminals. Follow your option's setup and app checks before the training. If installation permissions, enterprise network restrictions or time prevent a working setup, contact IT or ask about pairing with someone whose environment is ready.
+Both options cover the same labs. Codespaces prepares the tools automatically; Windows users install dependencies and build with npm, then run the API and website in two PowerShell terminals on their laptop or DevBox. A Windows DevBox uses this same native Node/npm route, not a separate container setup. Open the local app URLs in a browser on the machine running the app.
+
+**Use the shared baseline:** Node.js **24.x** and the committed lockfiles.
+
+On managed Windows machines, check the [enterprise certificate-trust guidance](01-setup.md#enterprise-certificate-trust) **before npm installation** if company certificates are required or certificate errors appear. The Windows trust-store setting preserves HTTPS verification and is terminal-scoped; it is not a requirement for every participant or for Codespaces.
+
+Follow your option's setup and app checks before the training. If installation permissions, enterprise network restrictions or time prevent a working setup, contact IT or ask about pairing with someone whose environment is ready.
 
 1. Follow [01-setup.md](01-setup.md) before F1. It covers your environment, the `workshop` branch, getting the reference files, checking the app and Copilot, and troubleshooting.
 2. Keep the current lab sheet open next to your workspace. On GitHub, use a second browser tab so you can copy prompts and commands. In VS Code, right-click the lab file and choose **Open Preview** for the formatted view.
@@ -98,6 +104,8 @@ Not every grey code block belongs in the same place. Read the sentence above it:
 - **"Send" or "ask Copilot":** paste the text into **Chat** as a prompt.
 - **"Run in the terminal":** use your Codespaces terminal, or local PowerShell with the [command equivalents](01-setup.md#local-windows-equivalents-for-lab-commands) instead of `make`. Unless a step says otherwise, start from the repository root.
 - **"Create", "replace" or "paste into a file":** edit the named file. A Markdown or JSON example is file content, not a terminal command.
+
+The labs use **API-only tests**: `make test-api` in Codespaces or `npm.cmd --prefix .\api test` in Windows PowerShell. Press **q** to leave watch mode, or use the [single-run commands](01-setup.md#local-windows-equivalents-for-lab-commands) when an agent runs tests.
 
 The code-block copy button saves typing; it doesn't decide where the text should go.
 

@@ -39,6 +39,8 @@ Build a small feature in an unfamiliar application: count the orders belonging t
 
 Complete the [setup checks](01-setup.md). Follow Parts 1–4 in order, run commands only when the sheet asks, and review changes before choosing **Keep**.
 
+Run terminal commands from the **repo root**. Use the Codespaces commands or the Windows PowerShell alternatives for your laptop or DevBox.
+
 ---
 
 ## Part 1: Ask, to understand the repo (⏱ 8 min)
@@ -106,10 +108,14 @@ Don't run, deploy or test anything yet.
 - Each request has a checkpoint you can restore.
 
 **3.3** Try it:
-1. In the terminal, run `make dev-api`.
-2. Open **Ports** → **3000** → add `/api-docs`.
+1. Start the API from the repo root:
+   - **Codespaces:** `make dev-api`
+   - **Windows PowerShell:** `npm.cmd --prefix .\api run dev`
+2. Open Swagger:
+   - **Codespaces:** open **Ports** → **3000** → add `/api-docs` to the forwarded URL.
+   - **Windows:** open http://localhost:3000/api-docs in a browser on the laptop or DevBox running the API.
 3. Open **Orders** and find your new endpoint (something like `GET /api/orders/branch/{branchId}/count`).
-4. Choose **Try it out**, set `branchId` = `1`, and choose **Execute**. If Swagger targets `localhost`, use the same endpoint path on the forwarded port URL instead.
+4. Choose **Try it out**, set `branchId` = `1`, and choose **Execute**. **Codespaces only:** if Swagger targets `localhost`, use the same endpoint path on the forwarded port URL instead.
 
 **3.4** Stop the server with **Ctrl+C**.
 
@@ -148,7 +154,7 @@ F1 has no answer key, because every endpoint will look a little different. Compa
 Nothing later today depends on F1. Keep your changes, or discard them with **Source Control** → **…** → **Discard All Changes**.
 
 ## Extensions (if you finish early)
-- Agent: `Write unit tests for countByBranch following the style of the existing repository tests.` Then run `make test-api`. It keeps watching for changes; press **q** to quit.
+- Agent: `Write unit tests for countByBranch following the style of the existing repository tests.` Then run the API tests from the repo root: **Codespaces:** `make test-api`; **Windows PowerShell:** `npm.cmd --prefix .\api test`. Tests keep watching for changes; press **q** to quit. For a single run, use the [setup guide's test commands](01-setup.md#local-windows-equivalents-for-lab-commands).
 - Send the 1.2 prompt again with a different model from the model picker. What changes?
 
 ## Think about this for the wrap-up

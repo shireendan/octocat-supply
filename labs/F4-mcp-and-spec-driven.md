@@ -39,6 +39,8 @@ Links are optional background; some examples use other languages or IDEs. Follow
 
 Complete the [setup checks](01-setup.md), then follow the cleanup and chat instructions below.
 
+Run terminal commands from the **repo root**. The Microsoft Learn HTTP MCP setup is the same in Codespaces and in VS Code on a Windows laptop or DevBox.
+
 > **Before you start:** if `.github/copilot-instructions.md` still has the TAO team rule from F3, delete those lines. TAO is made up, so code that uses it can't run, and in this lab the agents write real code.
 
 > **Do the whole lab in one chat.** Each step builds on what the previous one found.
@@ -120,6 +122,8 @@ Implement the failing tests for the plan in docs/tdd-plans/<plan-file>.md. Use t
 1. Review the new test file (for example `api/src/routes/order.test.ts`) and choose **Keep**.
 2. The tests should **fail because the feature doesn't exist yet**, for example with a 404. A typo in the test is the wrong reason: tell tdd-red.
 
+If the agent needs help running tests, use the [setup guide's single-run API test command](01-setup.md#local-windows-equivalents-for-lab-commands) for your environment. A missing command or dependency is not the expected red-phase failure.
+
 > **About the buttons:** the agents may show buttons such as **Write Red Tests** and **Write Green Implementation**. They switch agents and send the prompt for you, but only in the *Local* session type, and they send the plan from the *chat*, not your edited file. That's why we use the agent picker and name the file.
 
 ### 2.5 Green: make them pass (⏱ 4 min)
@@ -133,12 +137,19 @@ Review every change with **Keep** or **Undo**:
 - Did it touch the test file? It shouldn't have.
 
 ### 2.6 Verify (⏱ 2 min)
-1. In the terminal, run:
-   ```bash
-   make test
-   ```
-   It keeps watching for changes: check that your new and existing API tests pass, then press **q** to quit. Make then attempts the frontend tests, but this repo has no frontend `test` script. A `Missing script: "test"` message at that point is a known limitation, not an API-test failure.
-2. Run `make dev-api`, open **Ports** → **3000** in the browser and add `/api-docs` to the end of the URL. Find your new endpoint in Swagger, and try it with **Try it out**. If it targets `localhost`, use the same endpoint path on the forwarded port URL instead. Stop the server with **Ctrl+C**.
+From the repo root, use the commands for your environment:
+
+| Task | Codespaces | Windows PowerShell |
+|---|---|---|
+| API tests | `make test-api` | `npm.cmd --prefix .\api test` |
+| Start API | `make dev-api` | `npm.cmd --prefix .\api run dev` |
+
+1. Run the API tests. Check that your new and existing API tests pass, then press **q** to quit watch mode. For a single run instead, use the [setup guide's single-run commands](01-setup.md#local-windows-equivalents-for-lab-commands).
+2. Start the API, then open Swagger:
+   - **Codespaces:** open **Ports** → **3000** and add `/api-docs` to the forwarded URL.
+   - **Windows:** open http://localhost:3000/api-docs on the laptop or DevBox running the API.
+
+   Find your new endpoint and use **Try it out**. **Codespaces only:** if Swagger targets `localhost`, use the same endpoint path on the forwarded port URL instead. Stop the server with **Ctrl+C**.
 3. Go through the acceptance criteria in your plan: does each one have a passing test?
 
 | Role | Your focus |

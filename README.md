@@ -22,9 +22,11 @@ Our shared application is **OctoCAT Supply**, a sample supply-chain app, not a P
 ## Environment options
 
 - **GitHub Codespaces (recommended):** use the link above, then follow the [Codespaces setup](./labs/01-setup.md#option-a-github-codespaces-recommended). The tools, dependencies and build are prepared automatically.
-- **Local Node.js and npm:** use VS Code, Git and Node.js **24.x** (npm included) on your own machine. Follow the [local Windows setup](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows). No Docker or `make` is required.
+- **Local Node.js and npm:** run directly on a **Windows laptop or Windows DevBox**, using VS Code, Git and Node.js **24.x** (npm included). Follow the [Windows setup](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows). No Docker or `make` is required.
 
 Both options use the same app and labs, with **3000** for the API and **5137** for the website. Codespaces uses forwarded URLs; local users open `localhost`. The local instructions use Windows PowerShell and npm commands instead of the labs' `make` shortcuts.
+
+**Version baseline:** use the latest **Node.js 24.x** release and the committed dependency lockfiles. Node 26 is not the workshop baseline.
 
 Complete the app and Copilot checks before the training. Both options require repo access and a working Copilot license; local setup also needs permission to install tools and download packages. If installation or enterprise network restrictions prevent a working setup, contact IT or ask a facilitator about pairing with someone whose environment is ready.
 
@@ -104,7 +106,15 @@ Open the **Ports** tab and open the forwarded ports:
 
 ### Local Node.js and npm (Windows)
 
-Use **Node.js 24.x**, npm, Git and a normal local VS Code window. Follow the [local setup guide](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows) to install tools and clone the `workshop` branch.
+Use the latest **Node.js 24.x** release, npm, Git and VS Code on your Windows laptop or Windows DevBox. Run the commands and open the browser on that same machine; `localhost` refers to it. Follow the [Windows setup guide](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows) to install tools and clone the `workshop` branch.
+
+**Managed Windows machines:** before installing dependencies, follow the [enterprise certificate-trust guidance](./labs/01-setup.md#enterprise-certificate-trust) if your organisation requires company certificates or Node reports `unable to get local issuer certificate`. If the approved certificates are already trusted by Windows, run this in the same PowerShell terminal before the installation commands:
+
+```powershell
+$env:NODE_USE_SYSTEM_CA = "1"
+```
+
+This keeps HTTPS verification enabled and uses Windows' trusted certificates. It applies only to that terminal and its child processes; repeat in new terminals when needed. It is not required on every machine or for Codespaces. If it does not resolve the error, use the IT-approved certificate/proxy configuration described in the setup guide.
 
 For the first setup, run these **one at a time** from the repo root in PowerShell. Stop and resolve any error before continuing:
 
@@ -146,15 +156,13 @@ The following `make` shortcuts are for Codespaces. Local Windows users do not ne
 | `make dev` | Start the API and website |
 | `make dev-api` | Start only the API |
 | `make dev-frontend` | Start only the website |
-| `make test` | Start the API test watcher; press **q** to quit; see the limitation below |
+| `make test-api` | Run the API test suite in watch mode; press **q** to quit |
 | `make help` | List available Make targets |
 | `make install` | Install dependencies (already done during setup) |
 | `make build` | Build the API and website |
 | `make db-init` | Apply pending database migrations |
 | `make db-seed` | Apply migrations and seed sample data |
 | `make clean` | Remove build outputs, dependencies and database files at the API folder root |
-
-`make test` is not a working full-suite command: after the API tests, it calls a frontend `test` script that is not defined.
 
 **Database commands (optional)**
 

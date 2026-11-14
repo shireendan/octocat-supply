@@ -23,7 +23,7 @@ Two parts:
 |---|---|
 | **[Custom agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | A named role with saved instructions and tool permissions, not a newly trained model. |
 | **[Workspace agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | Stored in the repo's [agent folder](../.github/agents/); versioned and shared through Git. Here: API Specialist. |
-| **[User / personal agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | Stored in your editor profile, not the repo. In Codespaces, that's your codespace profile. Here: My Reviewer. |
+| **[User / personal agent](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#what-are-custom-github-copilot-agents)** | Stored in the active VS Code user profile, not the repo: the profile on your Windows laptop/DevBox or in your codespace. Here: My Reviewer. |
 | **[Frontmatter](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#agent-frontmatter-fields)** | The `---` header declaring the name, description and tools. The Markdown body below it holds the instructions. |
 | **[Tools / guardrails](https://learn.microsoft.com/en-us/training/modules/configure-customize-github-copilot-visual-studio-code/4-create-custom-github-copilot-agents#define-agent-capabilities-with-tools)** | The capabilities available to the agent. A `read`/`search`-only list leaves out editing and terminal access. |
 
@@ -111,7 +111,7 @@ When I ask for a review:
 3. Report at most 5 findings in a table: severity, line, problem, suggested fix.
 4. Never edit files or run commands. If I ask you to fix something, explain the fix instead.
 ```
-- **Why User?** A personal agent belongs to you, not to the repo. In this codespace it lives in your codespace profile. Workspace agents (Part A) are shared with your team through git.
+- **Why User?** A personal agent belongs to your active VS Code user profile, not to the repo. That can be the profile on your Windows laptop/DevBox or in your codespace. Workspace agents (Part A) are shared with your team through git.
 - **Why `tools: ['read', 'search']`?** The agent can only read and search, which is a guardrail. Without a `tools` line it would get the default tools, including editing.
 
 ### B2. Make it yours (⏱ 5 min)
