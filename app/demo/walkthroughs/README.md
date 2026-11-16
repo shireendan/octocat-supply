@@ -19,7 +19,7 @@ Comprehensive demo environment showcasing GitHub's enterprise features using a m
 
 - ✅ Full functionality including all MCP demos
 - ✅ Better performance for intensive tasks
-- ❌ Requires local setup (see [main README](../../README.md) for instructions)
+- ❌ Requires local setup (see [main README](../../../README.md) for instructions)
 - **Requirements**: Docker, GitHub PAT with repo permissions
 
 ### (optional) VSCode Insiders

@@ -17,10 +17,10 @@ git checkout -b <branch_name>
 ### Create a Vulnerable Block
 
 
-Update `api/src/routes/delivery.ts`, replacing the existing `router.put('/:id/status')` method. The vulnerable code uses `exec()` from `child_process` to run a user-supplied `notifyCommand` without any sanitization:
+Update `app/api/src/routes/delivery.ts`, replacing the existing `router.put('/:id/status')` method. The vulnerable code uses `exec()` from `child_process` to run a user-supplied `notifyCommand` without any sanitization:
 
 ```typescript
-// Update api/src/routes/delivery.ts, replacing the existing router.put('/:id/status') method
+// Update app/api/src/routes/delivery.ts, replacing the existing router.put('/:id/status') method
 
 router.put('/:id/status', async (req, res, next) => {
   try {

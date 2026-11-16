@@ -25,15 +25,15 @@ jobs:
 
 
       - name: Install all dependencies
-        run: make install
+        run: make -C app install
 
       - name: Install Playwright
-        working-directory: frontend
+        working-directory: app/frontend
         run: npm install -D @playwright/test
 
 
       - name: Install Playwright browsers (Chromium and Edge)
-        working-directory: frontend
+        working-directory: app/frontend
         run: npx playwright install chromium msedge
 
       - name: Install gh-aw extension

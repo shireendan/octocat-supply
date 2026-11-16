@@ -97,8 +97,8 @@ npm run test:api -- src/routes/product.test.ts
 
 ## 📚 Related Files
 
-- ERD Diagram: `api/ERD.png`
-- Existing test: `api/src/routes/branch.test.ts`
-- Test config: `api/vitest.config.ts`
-- Coverage report: `api/coverage/index.html`
+- ERD Diagram: `app/api/ERD.png`
+- Existing test: `app/api/src/routes/branch.test.ts`
+- Test config: `app/api/vitest.config.ts`
+- Coverage report: `app/api/coverage/index.html`
 

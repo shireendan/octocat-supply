@@ -4,11 +4,33 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Start API & Frontend",
-            "cwd": "${workspaceFolder}",
+            "name": "Start API",
+            "cwd": "${workspaceFolder}/app/api",
             "runtimeExecutable": "npm",
             "runtimeArgs": ["run", "dev"],
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Start Frontend",
+            "cwd": "${workspaceFolder}/app/frontend",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "dev"],
+            "console": "integratedTerminal",
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Start API & Frontend",
+            "configurations": ["Start API", "Start Frontend"],
+            "stopAll": true
         }
     ]
 }

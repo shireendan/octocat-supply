@@ -78,9 +78,9 @@ If you want to demo the more advanced CodeQL setup, you can easily do so with th
 
 1. Go the Repository -> Security -> Secrets
 2. You will see two alerts: One Default and one or two generic (the second is an AI detected - sometimes it can take while for them to show up)
-    1. **Default: GitHub PAT** - This got leaked within the `api/.env.example` file - however, another commit removed the secret again. You can showcase how Secret Scanning goes through the entire GitHub history
-    2. **Generic: AI Detected Password** - Also leaked in the `api/.env.example` and removed in another commit, this is so called `generic secret` detected by AI. It's supposed to be a project specific password, so you can demo how GitHub is also capable of detecting these.
-    3. **Generic: RSA Token** -Leaked in `api/ca.key`, this is a so called `non-provider` pattern secret
+    1. **Default: GitHub PAT** - This got leaked within the `app/api/.env.example` file - however, another commit removed the secret again. You can showcase how Secret Scanning goes through the entire GitHub history
+    2. **Generic: AI Detected Password** - Also leaked in the `app/api/.env.example` and removed in another commit, this is so called `generic secret` detected by AI. It's supposed to be a project specific password, so you can demo how GitHub is also capable of detecting these.
+    3. **Generic: RSA Token** -Leaked in `app/api/ca.key`, this is a so called `non-provider` pattern secret
 
 ### Push Protection: Anthropic API Key
 
@@ -97,10 +97,10 @@ If you want to demo the more advanced CodeQL setup, you can easily do so with th
 
 There are two guaranteed vulnerabilities:
 
-1. **Axios v1.8.1**: In the [frontend/package.json](../../frontend/package.json), Axios is installed in a Version that contains the [Advisory "CVE-2025-27152"](https://github.com/advisories/GHSA-jr5f-v2jv-69x6)
+1. **Axios v1.8.1**: In the [app/frontend/package.json](../../frontend/package.json), Axios is installed in a Version that contains the [Advisory "CVE-2025-27152"](https://github.com/advisories/GHSA-jr5f-v2jv-69x6)
     - In the repository, navigate to `Security -> Dependabot` to demo the alert
     - In the alert, you can find an EPSS score, CWE and other information you can point to
-2. **Dockerfile Alpine:** In the [frontend/Dockerfile](../../frontend/Dockerfile) and [api/Dockerfile](../../api/Dockerfile), you'll find that we are using an outdated alpine version. While Dependabot does not Support vulnerability alerts for this, it will open a PR with an update.
+2. **Dockerfile Alpine:** In the [app/frontend/Dockerfile](../../frontend/Dockerfile) and [app/api/Dockerfile](../../api/Dockerfile), you'll find that we are using an outdated alpine version. While Dependabot does not Support vulnerability alerts for this, it will open a PR with an update.
 
 > [!NOTE]
 > Only the above vulnerabilities are guaranteed to exist in a demo. You might see other dependency vulnerabilities naturally, as we won't be able to always keep all packages of this demo up-to-date. It somewhat adds a bit of non-critical non-determinism to the demo you can just use to your advantage ("this is like in a real project")

@@ -2,6 +2,8 @@
 
 This document explains how to use the SQLite database integration in the OctoCAT Supply Chain Management API.
 
+Commands and repository paths below start at the repository root, which contains `app` and `labs`. Use `npm.cmd` instead of `npm` in Windows PowerShell.
+
 ## Overview
 
 The API has been migrated from in-memory data storage to a persistent SQLite database. This provides:
@@ -33,12 +35,12 @@ The database consists of the following tables:
 When you start the server for the first time, the database will be automatically initialized:
 
 ```bash
-make dev
+make -C app dev
 ```
 
 This will:
 
-- Create the SQLite database file at `api/data/app.db`
+- Create the SQLite database file at `app/api/data/app.db`
 - Run all pending migrations
 - Seed the database with sample data (if empty)
 
@@ -47,25 +49,24 @@ This will:
 You can also manage the database manually from the root directory:
 
 ```bash
-# Initialize database with migrations and seed data
-make db-init
+# Apply pending migrations
+make -C app db-init
 
 # Run migrations only (no seeding)
-make db-migrate
+npm --prefix app/api run db:migrate
 
-# Seed database only
-make db-seed
+# Apply migrations and seed sample data
+make -C app db-seed
 ```
 
 <% if demo_options.backend == 'nodejs' %>
 
-Alternatively, if you're in the `api/` directory, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` directory, you can use npm commands directly:
 
 ```bash
-cd api
-npm run db:init
-npm run db:migrate
-npm run db:seed
+npm --prefix app/api run db:init
+npm --prefix app/api run db:migrate
+npm --prefix app/api run db:seed
 ```
 
 <% endif %>
@@ -74,7 +75,7 @@ npm run db:seed
 
 The database file is stored at:
 
-- **Development**: `api/data/app.db`
+- **Development**: `app/api/data/app.db`
 - **Testing**: In-memory (`:memory:`)
 
 You can override the database location using the `DB_FILE` environment variable:
@@ -132,15 +133,15 @@ const results = await repo.findByName('Tech');
 
 Database schema changes are managed through migration files:
 
-1. Create a new migration file: `api/sql/migrations/002_description.sql`
+1. Create a new sequential migration file in `app/api/database/migrations/`.
 2. Add your SQL statements
-3. Run migrations: `make db-migrate`<% if demo_options.backend == 'nodejs' %> (or `cd api && npm run db:migrate`)<% endif %>
+3. Run migrations: `npm --prefix app/api run db:migrate`.
 
 Migration files are executed in order and tracked in the `migrations` table.
 
 ### Seed Data
 
-Sample data is provided through seed files in `api/sql/seed/`:
+Sample data is provided through seed files in `app/api/database/seed/`:
 
 - `001_suppliers.sql` - Supplier data
 - `002_headquarters.sql` - Headquarters data
@@ -181,7 +182,7 @@ const db = await getDatabase(true); // true = test mode (in-memory)
 
 ## Configuration
 
-Database configuration is managed in `api/src/db/config.ts`:
+Database configuration is managed in `app/api/src/db/config.ts`:
 
 ```typescript
 export const DB_CONFIG = {
@@ -227,10 +228,10 @@ Since SQLite stores data in a single file, backup is straightforward:
 
 ```bash
 # Backup database
-cp api/data/app.db api/data/app-backup-$(date +%Y%m%d).db
+cp app/api/data/app.db app/api/data/app-backup-$(date +%Y%m%d).db
 
 # Restore from backup
-cp api/data/app-backup-20231225.db api/data/app.db
+cp app/api/data/app-backup-20231225.db app/api/data/app.db
 ```
 
 For production deployments, consider regular automated backups.
@@ -255,13 +256,13 @@ Enable verbose SQLite logging:
 <% if demo_options.backend == 'nodejs' %>
 
 ```bash
-NODE_ENV=development make dev
+NODE_ENV=development make -C app dev
 ```
 
 <% elsif demo_options.backend == 'python' %>
 
 ```bash
-make dev
+make -C app dev
 ```
 
 <% endif %>

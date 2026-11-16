@@ -6,7 +6,7 @@ This document outlines the deployment plan for the OctoCAT Supply Chain Manageme
 
 ### File Structure
 ```
-infra/
+app/infra/
 ├── main.bicep                 # Main orchestration file
 ├── modules/
 │   ├── webapps.bicep          # Web Apps (Sites) connected to ACR for running containers

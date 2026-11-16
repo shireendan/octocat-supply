@@ -24,20 +24,20 @@ Review my codebase and explain the project including any relevant programming la
 
 ### Installation & Running
 
-**[Do]** Open the terminal within VS Code and install the dependencies using `make install` command
+**[Do]** Open the terminal within VS Code and install the dependencies using `make -C app install` command
 
 > **For Windows:** Switch to the respective directory, for example, `/api` or `/frontend`, and run `npm install`
 
-**[Optional]** Launch the frontend using `make dev`
+**[Optional]** Launch the frontend using `make -C app dev`
 
 ---
 
 ### Inline Chat Completion Demo
 
 **[Do]** Open the following files and keep them open:
-- `api/src/models/order.ts`
-- `api/src/repositories/ordersRepo.ts`
-- `api/src/routes/order.ts`
+- `app/api/src/models/order.ts`
+- `app/api/src/repositories/ordersRepo.ts`
+- `app/api/src/routes/order.ts`
 
 **[Do]** Add this inline comment to `ordersRepo.ts` file between an existing async method (Don't add it to the end or beginning):
 ```typescript
@@ -53,7 +53,7 @@ Add a retrieval endpoint for countByBranch that I just added. Also, update the A
 
 ### Verification
 
-Once the agent completes the implementation, run the application using `make dev` and show the new endpoint
+Once the agent completes the implementation, run the application using `make -C app dev` and show the new endpoint
 
 **Open:** http://localhost:3000/api-docs
 - Look for the Orders section
@@ -103,11 +103,11 @@ Can you review my code and ensure it follows the best practices outlined in the 
 
 ### Running the Application
 
-**[Run the application]** Install the dependencies using `make install` command
+**[Run the application]** Install the dependencies using `make -C app install` command
 
 > **For Windows:** Switch to the respective directory, for example, `/api` or `/frontend`, and run `npm install`
 
-**[Optional]** View the frontend by running `make dev`
+**[Optional]** View the frontend by running `make -C app dev`
 
 ---
 

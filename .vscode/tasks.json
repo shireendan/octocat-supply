@@ -3,15 +3,8 @@
   "tasks": [
     {
       "label": "Build All",
-      "type": "shell",
       "dependsOrder": "sequence",
-      "command": "make",
-      "args": [
-        "build"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
+      "dependsOn": ["Build API", "Build Frontend"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -20,12 +13,16 @@
     {
       "label": "Build API",
       "type": "shell",
-      "command": "make",
+      "command": "npm",
       "args": [
-        "build-api"
+        "run",
+        "build"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}/app/api"
+      },
+      "windows": {
+        "command": "npm.cmd"
       },
       "presentation": {
         "reveal": "always",
@@ -38,12 +35,16 @@
     {
       "label": "Build Frontend",
       "type": "shell",
-      "command": "make",
+      "command": "npm",
       "args": [
-        "build-frontend"
+        "run",
+        "build"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}/app/frontend"
+      },
+      "windows": {
+        "command": "npm.cmd"
       },
       "presentation": {
         "reveal": "always",
@@ -56,7 +57,7 @@
     {
       "label": "GHAS: Inject Secrets",
       "type": "shell",
-      "command": "./demo/resources/apply_patch_set.sh",
+      "command": "./app/demo/resources/apply_patch_set.sh",
       "args": [
         "secret-scanning",
         "debug-startup-failure",
@@ -78,7 +79,7 @@
     {
       "label": "GHAS: Inject Dependabot Vulnerable Action",
       "type": "shell",
-      "command": "./demo/resources/apply_patch_set.sh",
+      "command": "./app/demo/resources/apply_patch_set.sh",
       "args": [
         "dependabot",
         "add-auto-label-action",
@@ -100,7 +101,7 @@
     {
       "label": "Copilot: Self-Healing DevOps",
       "type": "shell",
-      "command": "./demo/resources/apply_patch_set.sh",
+      "command": "./app/demo/resources/apply_patch_set.sh",
       "args": [
         "copilot-self-healing-devops",
         "update-branch-route-behavior",
@@ -122,7 +123,7 @@
     {
       "label": "Copilot: Custom Instructions",
       "type": "shell",
-      "command": "./demo/resources/apply_patch_set.sh",
+      "command": "./app/demo/resources/apply_patch_set.sh",
       "args": [
         "copilot-custom-instructions",
         "",

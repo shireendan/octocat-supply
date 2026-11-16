@@ -48,7 +48,7 @@ dist/
 coverage/
 
 # Database files
-api/data/
+app/api/data/
 *.db
 *.db-wal
 *.db-shm

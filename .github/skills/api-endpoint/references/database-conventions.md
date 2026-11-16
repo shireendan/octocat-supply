@@ -5,7 +5,7 @@ This document details SQLite database conventions for the OctoCAT Supply Chain A
 ## File Locations
 
 ```
-api/
+app/api/
 ├── data/
 │   └── app.db              # SQLite database file (gitignored)
 └── sql/
@@ -166,7 +166,7 @@ import { getDatabase } from '../db/sqlite';
 const db = await getDatabase();
 ```
 
-Database file location configured via `DB_FILE` environment variable (defaults to `api/data/app.db`).
+Database file location configured via `DB_FILE` environment variable (defaults to `app/api/data/app.db`).
 
 ### Testing (In-Memory)
 
@@ -222,7 +222,7 @@ throw new ValidationError('Invalid reference to related entity');
 
 ## Adding a New Table
 
-1. Create migration: `api/sql/migrations/00X_add_table_name.sql`
-2. Create seed (if needed): `api/sql/seed/00X_table_name.sql`
+1. Create migration: `app/api/database/migrations/00X_add_table_name.sql`
+2. Create seed (if needed): `app/api/database/seed/00X_table_name.sql`
 3. Restart API to run migrations
 4. Create model, repository, and routes following skill patterns

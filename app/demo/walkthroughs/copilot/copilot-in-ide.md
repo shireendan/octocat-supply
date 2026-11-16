@@ -182,7 +182,7 @@ If you want to demo Copilot Coding Agent, there is an Issue for improving Code C
      - Enter the prompt: `I want a new method that gets the orders for a branch ID`
      - Show how the planner agent:
        - Researches the codebase to understand existing patterns
-       - Creates a comprehensive TDD plan document in `docs/tdd-plans/`
+       - Creates a comprehensive TDD plan document in `app/docs/tdd-plans/`
        - Defines test specifications with Given-When-Then format
        - Documents acceptance criteria and edge cases
        - Identifies files to create/modify
@@ -196,7 +196,7 @@ If you want to demo Copilot Coding Agent, there is an Issue for improving Code C
        - Creates comprehensive test files following the plan
        - Runs tests to verify they fail correctly (expected behavior)
        - Reports test failure reasons
-     - Review the generated test file (e.g., `api/src/routes/order.test.ts`)
+     - Review the generated test file (e.g., `app/api/src/routes/order.test.ts`)
      - Show the test output confirming all tests fail with HTTP 404 (route not implemented)
 
   3. **Green Phase (Minimal Implementation):**
@@ -208,7 +208,7 @@ If you want to demo Copilot Coding Agent, there is an Issue for improving Code C
        - Adds appropriate Swagger documentation
        - Runs tests to verify they now pass
        - Reports success with implementation summary
-     - Review the implementation (e.g., new route in `api/src/routes/order.ts`)
+     - Review the implementation (e.g., new route in `app/api/src/routes/order.ts`)
      - Show all tests passing with green checkmarks ✅
 
   4. **Key Points to Highlight:**

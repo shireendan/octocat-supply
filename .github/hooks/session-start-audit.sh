@@ -19,7 +19,7 @@ COMMIT=$(git rev-parse HEAD 2>/dev/null || echo "unknown")
 COMMIT_MSG=$(git log -1 --pretty=%s 2>/dev/null || echo "unknown")
 DIRTY=$(git status --short 2>/dev/null | awk '{print $2}' | jq -R . | jq -sc .)
 
-MIGRATION_FILES=$(ls api/database/migrations/*.sql 2>/dev/null | xargs -I{} basename {} | jq -R . | jq -sc . || echo '[]')
+MIGRATION_FILES=$(ls app/api/database/migrations/*.sql 2>/dev/null | xargs -I{} basename {} | jq -R . | jq -sc . || echo '[]')
 MIGRATION_COUNT=$(echo "$MIGRATION_FILES" | jq 'length')
 
 jq -n \

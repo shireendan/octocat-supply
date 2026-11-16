@@ -19,7 +19,7 @@ You can demonstrate how required workflows can be used to enforce generalized ch
 **How:**
 
 1. In the demo repository, navigate to the **Actions** tab.
-2. Select the [Build and Publish](../../.github/workflows/build-and-publish.yml) workflow from the left sidebar.
+2. Select the [Build and Publish](../../../.github/workflows/build-and-publish.yml) workflow from the left sidebar.
 3. Review the workflow file to see how it references the reusable workflow from the central repository.
 4. Navigate to the central repository to view the workflow: https://github.com/msft-common-demos/od-octocat-supply-workflows/blob/main/.github/workflows/build-publish-containers.yml
 
@@ -41,7 +41,7 @@ You can demonstrate how required workflows can be used to enforce generalized ch
 
     1. `https://spdx.dev/Document/v2.3`: Confirms an SBOM is attached. (Note: This does not validate the SBOM's contents).
     2. `https://slsa.dev/provenance/v1`: Verifies the artifact's origin, confirming it was built by a specific reusable workflow and originated from your demo repository.
-3. Return to the [Build and Publish](../../.github/workflows/build-and-publish.yml) workflow (accessible via the `Workflow File` link on the attestation page).
+3. Return to the [Build and Publish](../../../.github/workflows/build-and-publish.yml) workflow (accessible via the `Workflow File` link on the attestation page).
 4. Point out that this workflow uses a reusable workflow to generate attestations, and navigate to it: https://github.com/msft-common-demos/od-octocat-supply-workflows/blob/main/.github/workflows/build-publish-containers.yml
 5. In the reusable workflow, scroll to the bottom to show the simple, built-in actions that generate the attestations.
   ![Screenshot of workflow YAML file showing the steps that generate SBOM and SLSA attestations using GitHub Actions](./images/attestation-workflow-file.png)
@@ -49,7 +49,7 @@ You can demonstrate how required workflows can be used to enforce generalized ch
 ### Verifying the Attestation
 
 > [!NOTE]
-> The [`./demo/resources/verify-attestation.sh`](../../demo/resources/verify-attestation.sh) script provided in the demo repo automates the generation of the `gh attestation verify` command for easy demoing. It finds the latest container image and runs the appropriate `gh` command. Ensure you are authenticated with the `gh` CLI (`read:packages` scope); the script will guide you if needed.
+> The [`./app/demo/resources/verify-attestation.sh`](../resources/verify-attestation.sh) script provided in the demo repo automates the generation of the `gh attestation verify` command for easy demoing. It finds the latest container image and runs the appropriate `gh` command. Ensure you are authenticated with the `gh` CLI (`read:packages` scope); the script will guide you if needed.
 
 **What to show:** Verifying artifact attestations using the `gh` CLI.
 
@@ -61,7 +61,7 @@ You can demonstrate how required workflows can be used to enforce generalized ch
 2. Run the verification script:
 
     ```bash
-    ./demo/resources/verify-attestation.sh
+    ./app/demo/resources/verify-attestation.sh
     ```
 
 3. The output will show:
@@ -70,9 +70,9 @@ You can demonstrate how required workflows can be used to enforce generalized ch
     2. A summary explaining the verification results.
 
 4. (Optional) If Azure deployments are configured, show how verification can be enforced in a GitHub Action:
-    1. Open the deployment workflow: [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml).
+    1. Open the deployment workflow: [.github/workflows/deploy.yml](../../../.github/workflows/deploy.yml).
     2. In the `Verify Container Attestations` step, explain that it uses a local custom action.
-    3. Navigate to the custom action's source: [.github/actions/verify-container-attestations/action.yml](../../.github/actions/verify-container-attestations/action.yml).
+    3. Navigate to the custom action's source: [.github/actions/verify-container-attestations/action.yml](../../../.github/actions/verify-container-attestations/action.yml).
     4. The `GH_COMMAND` environment variable contains the `gh attestation verify` commands for both SLSA and SBOM checks.
     5. This action also generates a helpful job summary, which you can display by navigating to a successful workflow run.
 
@@ -116,7 +116,7 @@ You can demonstrate how required workflows can be used to enforce generalized ch
 
 ### (optional) Show the creation of the Records in the Deployment Workflow
 
-1. Navigate back to the repository and to the workflow file: [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml).
+1. Navigate back to the repository and to the workflow file: [.github/workflows/deploy.yml](../../../.github/workflows/deploy.yml).
 2. The job `update-virtual-registry` has four steps. Show the two for the API deployment:
     1. **Create API Storage Record**
     2. **Create API Deployment Record**

@@ -108,17 +108,20 @@ When you describe what API feature you need, I will:
 ## Reference Architecture
 
 ```
-api/src/
-├── models/          # TypeScript types matching schema
-├── repositories/    # Data access layer
-├── routes/          # Express.js route handlers
-├── utils/
-│   └── errors.ts    # Domain error classes
-├── db/              # Database utilities
-└── sql/
-    ├── migrations/  # Schema evolution
-    └── seed/        # Reference data
+app/api/
+├── src/
+│   ├── models/          # TypeScript types matching schema
+│   ├── repositories/    # Data access layer
+│   ├── routes/          # Express.js route handlers
+│   ├── utils/
+│   │   └── errors.ts    # Domain error classes
+│   └── db/              # Database utilities
+└── database/
+    ├── migrations/      # Schema evolution
+    └── seed/            # Reference data
 ```
+
+Run commands from the repository root. For a single API test run, use `npm.cmd --prefix .\app\api test -- --run` in Windows PowerShell or `npm --prefix app/api test -- --run` in Codespaces. See the [API conventions](../instructions/api.instructions.md) and [architecture guide](../../app/docs/architecture.md).
 
 ## Example Scenarios
 

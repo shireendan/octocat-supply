@@ -5,12 +5,12 @@ These are repository-wide guidelines. Path‑scoped files in `.github/instructio
 ## High-Level Architecture
 
 TypeScript monorepo with:
-- `api/` Express REST API (SQLite persistence, repository pattern, Swagger docs)
+- `app/api/` Express REST API (SQLite persistence, repository pattern, Swagger docs)
 
-- `frontend/` React + Vite + Tailwind UI
-- Shared demo + infra docs under `docs/` and deployment scripts under `infra/`
+- `app/frontend/` React + Vite + Tailwind UI
+- Shared application docs under `app/docs/`, legacy demos under `app/demo/` and deployment configuration under `app/infra/`
 
-Refer to `docs/architecture.md` and `docs/sqlite-integration.md` for deeper details. Avoid restating them in reviews and link instead.
+Refer to [architecture](../app/docs/architecture.md) and [SQLite integration](../app/docs/sqlite-integration.md) for deeper details. Avoid restating them in reviews and link instead.
 
 ## General Review Guidance
 When generating suggestions:
@@ -27,7 +27,13 @@ When generating suggestions:
 
 ## Monorepo Workflow
 
-- Build frequently: `npm run build --workspace=api` or `--workspace=frontend` (root build runs both)
+- Keep the repository root open in VS Code; the application lives under `app/` and exercises under `labs/`.
+- Codespaces: `make -C app install`, `make -C app build`, `make -C app dev` and `make -C app test-api`.
+- Windows PowerShell: install locked dependencies with `npm.cmd --prefix .\app\api ci --include=optional` and `npm.cmd --prefix .\app\frontend ci --include=optional`.
+- Build with `npm.cmd --prefix .\app\api run build` and `npm.cmd --prefix .\app\frontend run build`.
+- Start the API and frontend in separate terminals with `npm.cmd --prefix .\app\api run dev` and `npm.cmd --prefix .\app\frontend run dev`.
+- Run API tests once with `npm.cmd --prefix .\app\api test -- --run` on Windows, or `npm --prefix app/api test -- --run` in Codespaces.
+- Keep migrations and seed data under `app/api/database/`. Follow the [setup guide](../labs/01-setup.md) for prerequisites, certificate trust and local URLs.
 
 - Keep PRs scoped: code + tests + docs (architecture or build notes) when behavior changes.
 - Update related instruction files if new folders or architectural slices are introduced.

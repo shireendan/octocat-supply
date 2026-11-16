@@ -2,11 +2,13 @@
 
 This guide provides instructions for building, running, and testing the OctoCAT Supply Chain Management application, which consists of an API component and a React Frontend.
 
+Run commands from the **repository root**, which contains `app` and `labs`. Keep that root open in VS Code. For the participant setup, including Windows certificate guidance, see the [setup guide](../../labs/01-setup.md). In Windows PowerShell use `npm.cmd` instead of `npm`; the Make commands below are for Codespaces or another Bash environment with Make.
+
 ## Prerequisites
 
 
 
-- Node.js (version 18 or higher)
+- Node.js 24.x (npm included)
 - npm (latest version recommended)
 
 - Docker/Podman (optional, for containerization)
@@ -17,7 +19,7 @@ This guide provides instructions for building, running, and testing the OctoCAT 
 2. Install dependencies:
 
 ```bash
-make install
+make -C app install
 ```
 
 ## Building the Application
@@ -28,22 +30,22 @@ You can build the entire application or its individual components using the foll
 
 ```bash
 # Build both API and Frontend components
-make build
+make -C app build
 
 # Build only the API component
-make build-api
+make -C app build-api
 
 # Build only the Frontend component
-make build-frontend
+make -C app build-frontend
 ```
 
 
 
-Alternatively, if you're in the `api/` or `frontend/` directories, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` or `app/frontend/` directories, you can use npm commands directly:
 
 ```bash
-cd api && npm run build
-cd frontend && npm run build
+npm --prefix app/api run build
+npm --prefix app/frontend run build
 ```
 
 
@@ -53,25 +55,24 @@ cd frontend && npm run build
 ### Database management
 
 ```bash
-# Initialize DB (migrations + seed)
-make db-init
+# Apply pending migrations
+make -C app db-init
 
 # Run migrations only
-make db-migrate
+npm --prefix app/api run db:migrate
 
-# Seed data only
-make db-seed
+# Apply migrations and seed sample data
+make -C app db-seed
 ```
 
 
 
-Alternatively, if you're in the `api/` directory, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` directory, you can use npm commands directly:
 
 ```bash
-cd api
-npm run db:init
-npm run db:migrate
-npm run db:seed
+npm --prefix app/api run db:init
+npm --prefix app/api run db:migrate
+npm --prefix app/api run db:seed
 ```
 
 
@@ -80,7 +81,7 @@ npm run db:seed
 
 Environment variables:
 
-- DB_FILE: path to SQLite database file (default: `api/data/app.db`)
+- DB_FILE: path to SQLite database file (default: `app/api/data/app.db`)
 - DB_ENABLE_WAL: enable WAL mode (default: true)
 - DB_FOREIGN_KEYS: enforce foreign keys (default: true)
 - DB_TIMEOUT: busy timeout in ms (default: 30000)
@@ -106,25 +107,27 @@ Alternatively, you can press `Ctrl+Shift+B` (or `Cmd+Shift+B` on macOS) to run t
 
 ```bash
 # Start both API and Frontend in development mode with hot reloading
-make dev
+make -C app dev
 
 # Start only the API in development mode
-make dev-api
+make -C app dev-api
 
 # Start only the Frontend in development mode
-make dev-frontend
+make -C app dev-frontend
 
 # Start the application in production mode
-make start
+make -C app start
 ```
 
 
 
-Alternatively, if you're in the `api/` or `frontend/` directories, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` or `app/frontend/` directories, you can use npm commands directly:
 
 ```bash
-cd api && npm run dev
-cd frontend && npm run dev
+# Terminal 1
+npm --prefix app/api run dev
+# Terminal 2
+npm --prefix app/frontend run dev
 ```
 
 
@@ -144,23 +147,16 @@ This will start both the API and Frontend in development mode with the integrate
 ### Running Tests
 
 ```bash
-# Run all tests
-make test
-
 # Run API tests only
-make test-api
-
-# Run frontend tests only
-make test-frontend
+make -C app test-api
 ```
 
 
 
-Alternatively, if you're in the `api/` or `frontend/` directories, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` or `app/frontend/` directories, you can use npm commands directly:
 
 ```bash
-cd api && npm run test
-cd frontend && npm run test
+npm --prefix app/api test -- --run
 ```
 
 
@@ -171,19 +167,19 @@ cd frontend && npm run test
 
 ```bash
 # Run linting checks
-make lint
+make -C app lint
 ```
 
 
 
-Alternatively, if you're in the `api/` or `frontend/` directory, you can use npm commands directly:
+Alternatively, if you're in the `app/api/` or `app/frontend/` directory, you can use npm commands directly:
 
 ```bash
-cd frontend && npm run lint
+npm --prefix app/frontend run lint
 ```
 
 ```bash
-cd api && npm run lint
+npm --prefix app/api run lint
 ```
 
 
@@ -204,5 +200,5 @@ The project includes Dockerfiles for both API and Frontend components and a dock
 
 ```bash
 # Build and start using Docker Compose
-docker-compose up --build
+docker compose -f app/docker-compose.yml up --build
 ```

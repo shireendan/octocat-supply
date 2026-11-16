@@ -19,8 +19,8 @@ There are a bunch of "live-coding-demos" included in this platform demo. Most of
 If you want to contribute to the demo and add a new patch-set, follow these steps:
 
 1. Make the changes or create the files you want to have as part of the Patch-Set
-2. From the root-directory, do `tar -czf <path-to-file-1> <path-to-file-2>`, for example `tar -czf .github/copilot-instructions.md ./frontend/index.html`
-3. In [demo/resources], create a new folder with a good name of your patch set (look at the existing ones for inspiration)
+2. From the root-directory, do `tar -czf <path-to-file-1> <path-to-file-2>`, for example `tar -czf .github/copilot-instructions.md ./app/frontend/index.html`
+3. In [app/demo/resources], create a new folder with a good name of your patch set (look at the existing ones for inspiration)
 4. Place the generated `patch.tgz` in there
 5. Navigate to [.vscode/tasks.json](../../.vscode/tasks.json) and copy one of the existing tasks into a new one into the array
 6. Overwrite the `label` with the name of your demoed feature

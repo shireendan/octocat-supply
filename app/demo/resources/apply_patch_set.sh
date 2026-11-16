@@ -2,6 +2,7 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+REPO_ROOT="$(git -C "$DIR" rev-parse --show-toplevel)"
 
 feature_name=$1
 branch_name=$2
@@ -22,7 +23,7 @@ fi
 
 # Apply code changes
 echo "Applying code changes..."
-pushd $DIR/../..
+pushd "$REPO_ROOT"
 tar -xzf ${feature_pack_tarball}
 popd
 

@@ -42,14 +42,14 @@ Determine which feature or page needs testing. Scope the session to the task at 
 
 Gather context:
 - Which component or route was changed?
-- Does the feature have an existing Gherkin spec in `frontend/tests/features/`? If so, use it as the test plan.
+- Does the feature have an existing Gherkin spec in `app/frontend/tests/features/`? If so, use it as the test plan.
 - Are there accessibility or responsive requirements?
 
 ### Step 2 — Launch & Navigate
 
 Use the Playwright MCP server for **all** browser interactions. Do **not** use terminal commands (`npx playwright`, scripts, etc.).
 
-**Always use Microsoft Edge** as the browser for all Playwright MCP testing. The Playwright config (`frontend/playwright.config.ts`) includes an `edge` project (`Desktop Edge` with `--headless=new`). Do not use Chromium.
+**Always use Microsoft Edge** as the browser for all Playwright MCP testing. The Playwright config (`app/frontend/playwright.config.ts`) includes an `edge` project (`Desktop Edge` with `--headless=new`). Do not use Chromium.
 
 1. Open the application in **Microsoft Edge**.
 2. Take a snapshot after page load to confirm the app is running.
@@ -215,8 +215,8 @@ gh issue create \
 
 | Asset | Location | Purpose |
 |-------|----------|---------|
-| Gherkin feature | `frontend/tests/features/product-navigation.feature` | Product catalog BDD spec |
-| E2E spec | `frontend/tests/e2e/product-navigation.spec.ts` | Playwright test implementation |
-| Playwright config | `frontend/playwright.config.ts` | Browser/project/server config |
+| Gherkin feature | `app/frontend/tests/features/product-navigation.feature` | Product catalog BDD spec |
+| E2E spec | `app/frontend/tests/e2e/product-navigation.spec.ts` | Playwright test implementation |
+| Playwright config | `app/frontend/playwright.config.ts` | Browser/project/server config |
 
 When a Gherkin feature exists for the page under test, use it as the primary test plan and verify each scenario.

@@ -34,7 +34,7 @@ Looper Rules:
 
 <stopping_rules>
 STOP the loop when:
-- All route files in `api/src/routes/` have corresponding `*.test.ts` files
+- All route files in `app/api/src/routes/` have corresponding `*.test.ts` files
 - User explicitly requests to stop
 
 Hand off to api-test-writer when:
@@ -45,7 +45,7 @@ Hand off to api-test-writer when:
 
 ## 1. Scan for Untested Routes
 
-Use #tool:agent/runSubagent to search the `api/src/routes/` directory to find:
+Use #tool:agent/runSubagent to search the `app/api/src/routes/` directory to find:
 - All route files: `*.ts` (excluding `*.test.ts`)
 - All test files: `*.test.ts`
 
@@ -72,7 +72,7 @@ If untested routes exist:
 - run the #tool:agent/runSubagent in parallel for each untested route to invoke the `api-test-writer` agent with the route file path.
 - The invoke message should include: `path/{routeName}.ts`
 
-Example invocation: `Write comprehensive tests for api/src/routes/supplier.ts.`
+Example invocation: `Write comprehensive tests for app/api/src/routes/supplier.ts.`
 
 ## 4. Loop Continuation
 

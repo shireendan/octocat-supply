@@ -1,7 +1,7 @@
 ---
 name: API Test Writer
 description: Writes comprehensive tests for a specific API route and verifies 80% coverage
-argument-hint: Path to the route file to test (e.g., api/src/routes/delivery.ts)
+argument-hint: Path to the route file to test (e.g., app/api/src/routes/delivery.ts)
 tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/awaitTerminal', 'execute/killTerminal', 'execute/runTask', 'execute/runTests', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'read/getTaskOutput', 'agent', 'edit', 'search', 'web/githubRepo', 'azure-mcp-server/search', 'todo']
 user-invokable: false
 handoffs:
@@ -57,7 +57,7 @@ Instruct subagent to return:
 
 ## 2. Create Test File
 
-Create `api/src/routes/{routeName}.test.ts` following this any existing test file as a template. If there is no existing test file, use standard best practices.
+Create `app/api/src/routes/{routeName}.test.ts` following this any existing test file as a template. If there is no existing test file, use standard best practices.
 
 ## 3. Write Test Cases
 
@@ -90,7 +90,7 @@ For each endpoint in the route, write tests:
 Execute tests with coverage in **non-interactive mode**:
 
 ```bash
-cd api && npm run test:coverage -- api/src/routes/{routeName}.test.ts
+cd app/api && npm run test:coverage -- app/api/src/routes/{routeName}.test.ts
 ```
 
 Or use #tool:execute/runTests with `mode: "coverage"` to run the specific test file.
@@ -101,8 +101,8 @@ Check test results:
 - If tests fail → analyze error, fix test or identify implementation bug
 - If tests pass → check coverage
 
-Check coverage from `api/coverage/coverage-summary.json`:
-- Find entry for `api/src/routes/{routeName}.ts`
+Check coverage from `app/api/coverage/coverage-summary.json`:
+- Find entry for `app/api/src/routes/{routeName}.ts`
 - Check `lines.pct` and `branches.pct`
 - Target: both ≥ 80%
 
@@ -128,7 +128,7 @@ When tests pass and coverage ≥ 80% report as follows:
 **Test Results:** All {N} tests passing
 **Coverage:** {X}% lines, {Y}% branches
 
-Test file created: `api/src/routes/{routeName}.test.ts`
+Test file created: `app/api/src/routes/{routeName}.test.ts`
 ```
 </workflow>
 
@@ -137,17 +137,17 @@ Common FK dependencies for seeding:
 
 Research the foreign key relationships for the route being tested. For example, if testing `supplier.ts` and it has a foreign key to `branch`, you will need to seed a branch record before creating a supplier in your tests.
 
-Check the migration files in `api/database/migrations/` for exact schema.
+Check the migration files in `app/api/database/migrations/` for exact schema.
 </foreign_key_reference>
 
 <coverage_commands>
 Run coverage for specific file (non-interactive):
 ```bash
-cd api && npm run test:coverage -- --reporter=json-summary api/src/routes/{file}.test.ts
+cd app/api && npm run test:coverage -- --reporter=json-summary app/api/src/routes/{file}.test.ts
 ```
 
 View coverage summary:
 ```bash
-cat api/coverage/coverage-summary.json | jq '.["api/src/routes/{file}.ts"]'
+cat app/api/coverage/coverage-summary.json | jq '.["app/api/src/routes/{file}.ts"]'
 ```
 </coverage_commands>

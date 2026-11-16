@@ -68,7 +68,7 @@ INTERNAL THOUGHTS – not shown to the user.
 <!-- Checklist tasks. Be specific with file paths and methods when possible -->
 - [ ] Update `src/api/controller.ts` to handle new endpoint
 - [ ] Add unit tests for [specific functionality]
-- [ ] Update documentation in `docs/api.md`
+- [ ] Update documentation in `app/docs/api.md`
 
 ## 6. Success Criteria
 <!-- How do we know when this task is complete? -->
@@ -79,7 +79,7 @@ INTERNAL THOUGHTS – not shown to the user.
 
 ## 7. Documentation & Resources
 <!-- Links to specs, diagrams, prior PRs, related issues -->
-- Architecture: [Architecture Document](../docs/architecture.md)
+- Architecture: [Architecture Document](../../app/docs/architecture.md)
 - Related PR: #
 - Design mockup: 
 - API documentation:

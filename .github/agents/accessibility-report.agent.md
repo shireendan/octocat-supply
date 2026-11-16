@@ -43,11 +43,11 @@ Help implement web accessibility best practices following W3C WCAG standards, en
 
 ### Step 1: Verify Output Directory and Clean Up
 
-Ensure the default output directory `docs/accessibility-reports/` exists and remove any existing reports for fresh analysis.
+Ensure the default output directory `app/docs/accessibility-reports/` exists and remove any existing reports for fresh analysis.
 
 ```bash
 # Ensure directory exists (creates only if needed)
-mkdir -p docs/accessibility-reports
+mkdir -p app/docs/accessibility-reports
 
 ```
 
@@ -63,13 +63,13 @@ Review code for WCAG compliance issues across both light and dark themes. Identi
 
 Create comprehensive reports in both HTML and Markdown formats for light and dark themes:
 
-1. **Light Mode HTML Report** (#runSubagent:html-expert): Create `docs/accessibility-reports/a11y-audit-${camelCaseName}-light.html` with proper styling, color-coded severity indicators, expandable sections, and responsive design. Include light theme-specific findings (contrast on white/light backgrounds, focus indicators in light mode, etc.)
+1. **Light Mode HTML Report** (#runSubagent:html-expert): Create `app/docs/accessibility-reports/a11y-audit-${camelCaseName}-light.html` with proper styling, color-coded severity indicators, expandable sections, and responsive design. Include light theme-specific findings (contrast on white/light backgrounds, focus indicators in light mode, etc.)
 
-2. **Dark Mode HTML Report** (#runSubagent:html-expert): Create `docs/accessibility-reports/a11y-audit-${camelCaseName}-dark.html` focused on dark theme-specific findings (contrast on dark backgrounds #0A0A0A/#262626, focus indicators visibility in dark mode, dark theme color palette accessibility, etc.)
+2. **Dark Mode HTML Report** (#runSubagent:html-expert): Create `app/docs/accessibility-reports/a11y-audit-${camelCaseName}-dark.html` focused on dark theme-specific findings (contrast on dark backgrounds #0A0A0A/#262626, focus indicators visibility in dark mode, dark theme color palette accessibility, etc.)
 
-3. **Light Mode Markdown Report** (#runSubagent:markdown-expert): Generate `docs/accessibility-reports/a11y-audit-${camelCaseName}-light.md` with clean formatting, proper heading hierarchy, tables, and code examples documenting light theme-specific accessibility considerations.
+3. **Light Mode Markdown Report** (#runSubagent:markdown-expert): Generate `app/docs/accessibility-reports/a11y-audit-${camelCaseName}-light.md` with clean formatting, proper heading hierarchy, tables, and code examples documenting light theme-specific accessibility considerations.
 
-4. **Dark Mode Markdown Report** (#runSubagent:markdown-expert): Generate `docs/accessibility-reports/a11y-audit-${camelCaseName}-dark.md` focused on dark theme-specific accessibility findings and theme-specific remediation guidance.
+4. **Dark Mode Markdown Report** (#runSubagent:markdown-expert): Generate `app/docs/accessibility-reports/a11y-audit-${camelCaseName}-dark.md` focused on dark theme-specific accessibility findings and theme-specific remediation guidance.
 
 ## Your Expertise
 
@@ -108,7 +108,7 @@ Before beginning analysis:
 ## Error Recovery
 
 **Directory Creation Failures:**
-- If `docs/accessibility-reports/` creation fails, prompt user for alternative path
+- If `app/docs/accessibility-reports/` creation fails, prompt user for alternative path
 - Fallback to workspace root if no alternative provided
 
 **Subagent Failures:**
@@ -497,7 +497,7 @@ The **accessibility-report** agent is a comprehensive WCAG 2.1/2.2 compliance au
 - For comprehensive accessibility audits of existing applications
 
 **Output:**
-Default output location: `docs/accessibility-reports/` (configurable)
+Default output location: `app/docs/accessibility-reports/` (configurable)
 
 Two comprehensive report sets (one for light mode, one for dark mode):
 - **Interactive HTML reports** with filtering, search, and expandable sections

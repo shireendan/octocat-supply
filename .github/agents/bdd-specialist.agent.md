@@ -180,7 +180,7 @@ import { test, expect } from '@playwright/test';
 
 /**
  * Product catalog discovery E2E tests
- * Implements: frontend/tests/features/product-navigation.feature
+ * Implements: app/frontend/tests/features/product-navigation.feature
  */
 
 test.describe('Product catalog discovery', () => {
@@ -260,11 +260,11 @@ test.describe('Product catalog discovery', () => {
 
 ### Current Playwright Setup (OctoCAT Supply)
 
-**Configuration File**: `frontend/playwright.config.ts`
+**Configuration File**: `app/frontend/playwright.config.ts`
 - **Browsers**: Chromium and Edge only (no Firefox, WebKit)
 - **Base URL**: `http://localhost:5137` (Vite dev server)
 - **API URL**: `http://localhost:3000` (Express backend)
-- **Test Directory**: `frontend/tests/e2e/`
+- **Test Directory**: `app/frontend/tests/e2e/`
 - **Edge Config**: Uses `args: ['--headless=new']` to avoid deprecation warnings
 
 **Running Tests**:
@@ -283,13 +283,13 @@ npm run test:e2e
 4. Tests wait 10 seconds for servers to initialize
 
 **Dependencies**:
-- `@playwright/test: ^1.49.0` in `frontend/package.json`
+- `@playwright/test: ^1.49.0` in `app/frontend/package.json`
 - Browsers installed via: `npx playwright install chromium msedge`
 
 ### Reference File Structure
 
 ```
-frontend/
+app/frontend/
 ├── tests/
 │   ├── features/                     # Gherkin feature files
 │   │   ├── product-navigation.feature
@@ -302,7 +302,7 @@ frontend/
 ├── playwright.config.ts              # Playwright configuration
 └── .gitignore                        # Includes test-results/, playwright-report/
 
-api/
+app/api/
 ├── src/
 │   └── routes/                       # API endpoints for test data setup
 └── sql/
@@ -371,12 +371,12 @@ For each feature, verify:
 → I'll add keyboard/screen reader scenarios + Playwright accessibility assertions
 
 **Request 3**: "Implement the product-navigation.feature file using Playwright"
-→ I'll create `frontend/tests/e2e/product-navigation.spec.ts` with all scenarios, proper waits, and accessibility selectors
+→ I'll create `app/frontend/tests/e2e/product-navigation.spec.ts` with all scenarios, proper waits, and accessibility selectors
 
 ## Playwright Configuration Reference
 
 ```typescript
-// frontend/playwright.config.ts
+// app/frontend/playwright.config.ts
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({

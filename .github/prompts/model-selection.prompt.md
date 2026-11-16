@@ -23,7 +23,7 @@ tools: ['web/fetch', 'search', 'edit']
 Help me choose the best Copilot model for my task.
 
 - This is for GitHub Copilot only — do not suggest using models directly
-- Consider the project architecture as defined by the [architecture doc](../../docs/architecture.md)
+- Consider the project architecture as defined by the [architecture doc](../../app/docs/architecture.md)
 - Ask clarifying questions when necessary
 - List ALL models from the docs (even the ones you don't recommend)
 - For each model summarize:

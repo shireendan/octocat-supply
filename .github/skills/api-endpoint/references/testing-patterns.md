@@ -4,7 +4,7 @@ This document provides comprehensive guidance for writing unit tests and integra
 
 ## Overview
 
-**Always create unit tests** for new repositories in `api/src/repositories/{entity}sRepo.test.ts`.
+**Always create unit tests** for new repositories in `app/api/src/repositories/{entity}sRepo.test.ts`.
 
 All tests use Vitest as the testing framework with the following key libraries:
 - `vitest` - Test runner and assertion library
@@ -14,7 +14,7 @@ All tests use Vitest as the testing framework with the following key libraries:
 
 ### Test File Structure
 
-Create tests in `api/src/repositories/{entity}sRepo.test.ts`:
+Create tests in `app/api/src/repositories/{entity}sRepo.test.ts`:
 
 ```typescript
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -232,7 +232,7 @@ Your repository tests must cover:
 
 ## Route Integration Tests (Optional)
 
-Create integration tests in `api/src/routes/{entity}.test.ts` to test HTTP endpoints:
+Create integration tests in `app/api/src/routes/{entity}.test.ts` to test HTTP endpoints:
 
 ```typescript
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -417,7 +417,7 @@ Vitest provides clear, formatted output showing:
 
 ## Example: Complete Test File
 
-See `api/src/repositories/suppliersRepo.test.ts` for a complete, production-ready example following all patterns and best practices.
+See `app/api/src/repositories/suppliersRepo.test.ts` for a complete, production-ready example following all patterns and best practices.
 
 ## Related Documentation
 

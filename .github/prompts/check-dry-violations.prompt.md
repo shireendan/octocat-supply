@@ -11,7 +11,7 @@ Analyze the codebase for DRY (Don't Repeat Yourself) violations and provide acti
 ## 🔎 Areas to Analyze
 
 ### 1. **API Route Patterns** 🛣️
-Examine all route files in `api/src/routes/` for:
+Examine all route files in `app/api/src/routes/` for:
 - **CRUD Operations**: Identical GET, POST, PUT, DELETE patterns
 - **Swagger Documentation**: Repetitive OpenAPI schema definitions
 - **Error Handling**: Duplicate 404/400/500 error responses
@@ -19,7 +19,7 @@ Examine all route files in `api/src/routes/` for:
 - **Response Formatting**: Repeated JSON response structures
 
 ### 2. **Component Patterns** ⚛️
-Analyze React components in `frontend/src/components/` for:
+Analyze React components in `app/frontend/src/components/` for:
 - **UI Components**: Similar layout patterns, buttons, forms
 - **Data Fetching**: Duplicate API call patterns
 - **State Management**: Repetitive useState/useEffect patterns
@@ -104,7 +104,7 @@ For each violation, provide:
 
 ## 🚀 Getting Started
 
-1. **Scan Route Files**: Start with `api/src/routes/` directory
+1. **Scan Route Files**: Start with `app/api/src/routes/` directory
 2. **Analyze Patterns**: Look for identical or nearly identical code blocks
 3. **Document Findings**: Create violation inventory with severity ratings
 4. **Propose Solutions**: Design generic abstractions and patterns

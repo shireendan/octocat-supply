@@ -14,7 +14,7 @@ The API uses JSDoc-style `@swagger` comments that are parsed by `swagger-jsdoc` 
 Define schemas in model files above the TypeScript interface:
 
 ```typescript
-// api/src/models/supplier.ts
+// app/api/src/models/supplier.ts
 
 /**
  * @swagger

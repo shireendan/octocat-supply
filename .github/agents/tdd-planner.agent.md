@@ -66,7 +66,7 @@ NEVER proceed to implementation—only planning.
 </workflow>
 
 <tdd_plan_template>
-Output your plan in this format (save to `docs/tdd-plans/{feature-name}.md`):
+Output your plan in this format (save to `app/docs/tdd-plans/{feature-name}.md`):
 
 ```markdown
 # TDD Plan: {Feature Name}

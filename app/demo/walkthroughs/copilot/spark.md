@@ -33,7 +33,7 @@ The Spark app in this demo is a logistics overview and tracking dashboard for th
     Create an app that provides a logistics overview and tracking dashboard for all orders from the Octocat Supplies Store. It should give individual users visibility into where each order stands—from placement to delivery or cancellation. Integrate location services and a live map view to visualize shipment routes and delivery statuses. Add search order and filtering capabilities.
     ```
 
-2. (optional) Attach the prototype-image in [./docs/design/order-tracking-prototype.png](../../docs/design/order-tracking-prototype.png) - explain this is the design coming from Figma or any other design tool.
+2. (optional) Attach the prototype-image in [./app/docs/design/order-tracking-prototype.png](../../docs/design/order-tracking-prototype.png) - explain this is the design coming from Figma or any other design tool.
 
 3. Submit
 

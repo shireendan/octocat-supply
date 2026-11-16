@@ -77,7 +77,7 @@ NEW_COMMIT_COUNT=$(echo "$NEW_COMMITS_JSON" | jq 'length')
 
 # New migration files added since session start
 START_MIGRATIONS=$(jq -c '.migrations.files' "$START" 2>/dev/null || echo '[]')
-CURRENT_MIGRATIONS=$(ls api/database/migrations/*.sql 2>/dev/null | xargs -I{} basename {} | jq -R . | jq -sc . || echo '[]')
+CURRENT_MIGRATIONS=$(ls app/api/database/migrations/*.sql 2>/dev/null | xargs -I{} basename {} | jq -R . | jq -sc . || echo '[]')
 NEW_MIGRATIONS=$(jq -n --argjson cur "$CURRENT_MIGRATIONS" --argjson start "$START_MIGRATIONS" '$cur - $start')
 NEW_MIGRATION_COUNT=$(echo "$NEW_MIGRATIONS" | jq 'length')
 

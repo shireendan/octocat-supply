@@ -24,28 +24,28 @@ jobs:
       with:
         node-version: 24
         cache: 'npm'
-        cache-dependency-path: api/package-lock.json
+        cache-dependency-path: app/api/package-lock.json
         
     - name: Install dependencies
-      working-directory: api
+      working-directory: app/api
       run: npm ci
       
     - name: Lint API
       id: lint
       if: always()
-      working-directory: api
+      working-directory: app/api
       run: npm run lint
       
     - name: Build API
       id: build
       if: always()
-      working-directory: api
+      working-directory: app/api
       run: npm run build
       
     - name: Run API Tests with Coverage
       id: tests
       if: always()
-      working-directory: api
+      working-directory: app/api
       run: npm run test:coverage
 
     - name: Upload Coverage Reports
@@ -54,7 +54,7 @@ jobs:
       with:
         name: coverage-reports-backend
         path: |
-          api/coverage/
+          app/api/coverage/
         retention-days: 30
         if-no-files-found: ignore
 
@@ -71,22 +71,22 @@ jobs:
       with:
         node-version: 24
         cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+        cache-dependency-path: app/frontend/package-lock.json
 
     - name: Install dependencies
-      working-directory: frontend
+      working-directory: app/frontend
       run: npm ci
       
     - name: Lint Frontend
       id: lint
       if: always()
-      working-directory: frontend
+      working-directory: app/frontend
       run: npm run lint
       
     - name: Build Frontend
       id: build
       if: always()
-      working-directory: frontend
+      working-directory: app/frontend
       run: npm run build
 
   report:
@@ -103,7 +103,7 @@ jobs:
       uses: actions/download-artifact@v5
       with:
         name: coverage-reports-backend
-        path: api/coverage/
+        path: app/api/coverage/
       continue-on-error: true
 
         
@@ -128,7 +128,7 @@ jobs:
           let coverageData = null;
           
           try {
-            const coveragePath = 'api/coverage/coverage-summary.json';
+            const coveragePath = 'app/api/coverage/coverage-summary.json';
             if (fs.existsSync(coveragePath)) {
               coverageData = JSON.parse(fs.readFileSync(coveragePath, 'utf8'));
               coverage = coverageData.total.lines.pct || 0;

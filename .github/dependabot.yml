@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/app/frontend"
     schedule:
       interval: "weekly"
     labels:
@@ -14,7 +14,7 @@ updates:
           - "*"
 
   - package-ecosystem: "npm"
-    directory: "/api"
+    directory: "/app/api"
     schedule:
       interval: "weekly"
     labels:
@@ -44,7 +44,7 @@ updates:
           - "*"
 
   - package-ecosystem: "docker"
-    directory: "/frontend"
+    directory: "/app/frontend"
     schedule:
       interval: "weekly"
     labels:
@@ -57,7 +57,7 @@ updates:
           - "*"
 
   - package-ecosystem: "docker"
-    directory: "/api"
+    directory: "/app/api"
     schedule:
       interval: "weekly"
     labels:

@@ -112,9 +112,9 @@ Clarifying Questions:
 (No refined prompt yet.)
 
 ### Example B (Refinable):
-User: "Add server-side pagination to product list API in api/src/routes/product.ts; page size configurable via query. Keep existing filters."
+User: "Add server-side pagination to product list API in app/api/src/routes/product.ts; page size configurable via query. Keep existing filters."
 Refined Prompt:
-Add server‑side pagination to products endpoint in api/src/routes/product.ts.
+Add server‑side pagination to products endpoint in app/api/src/routes/product.ts.
 Requirements:
 - Query params: page (1-based int), pageSize (int; default 25; max 100).
 - Preserve existing filtering & sorting semantics unchanged.
