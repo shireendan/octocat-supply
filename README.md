@@ -12,17 +12,17 @@ Our shared application is **OctoCAT Supply**, a sample supply-chain app, not a P
 
 ## Start here
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1)
-
 1. Sign in with the GitHub account that has your Copilot license and access to this repo.
-2. Choose an environment below. **Codespaces is recommended, not mandatory.** The link above creates your codespace the first time and resumes it on later visits.
-3. Follow the [setup guide](./labs/01-setup.md) for your chosen environment, including installation, branch, app and Copilot checks, and troubleshooting before F1.
+2. Use **native Windows Node.js/npm on your DevBox or laptop** as the primary option. GitHub Codespaces is the alternative if you cannot prepare that environment.
+3. Follow the [setup guide](./labs/01-setup.md) to install tools, prepare your workspace, run the app and check Copilot before F1.
 4. Open the [labs README](./labs/README.md) for the schedule and context on how the exercises work.
 
 ## Environment options
 
-- **GitHub Codespaces (recommended):** use the link above, then follow the [Codespaces setup](./labs/01-setup.md#option-a-github-codespaces-recommended). The tools, dependencies and build are prepared automatically.
-- **Local Node.js and npm:** run directly on a **Windows laptop or Windows DevBox**, using VS Code, Git and Node.js **24.x** (npm included). Follow the [Windows setup](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows). No Docker or `make` is required.
+- **Option 1 - Windows DevBox/local (recommended):** run Node.js/npm directly on a Windows DevBox or laptop, using VS Code, Git and Node.js **24.x** (npm included). Follow the [Windows setup](./labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](./labs/01-setup.md#install-nodejs-and-python). No Docker or `make` is required.
+- **Option 2 - GitHub Codespaces:** follow the [Codespaces setup](./labs/01-setup.md#option-b-github-codespaces) for a cloud workspace with tools, dependencies and builds prepared automatically.
+
+  [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1)
 
 Both options use the same app and labs, with **3000** for the API and **5137** for the website. Codespaces uses forwarded URLs; local users open `localhost`. The local instructions use Windows PowerShell and npm commands instead of the labs' `make` shortcuts.
 
@@ -44,7 +44,8 @@ Start with the overview and setup guide, then follow one application through fou
 | Guide or session | Purpose | What it covers |
 |---|---|---|
 | [Labs README](./labs/README.md) | Get the workshop context before you begin. | The schedule, how the labs work, lab conventions and where to get help. |
-| [Setup guide](./labs/01-setup.md) | Complete setup before F1. | Codespaces or local setup, Windows command equivalents, branch and app checks, Copilot checks, ground rules and troubleshooting. |
+| [Setup guide](./labs/01-setup.md) | Complete setup before F1. | Install tools, prepare a Windows DevBox/local workspace or Codespace, run the app and check Copilot. |
+| [Troubleshooting and reference](./labs/troubleshooting.md) | Use only if you need help or extra commands. | Certificate and PATH fixes, native-build requirements, test commands, branch recovery and reference-file comparisons. |
 | [F1. Prompting Fundamentals](./labs/F1-prompting-fundamentals.md) | Understand an unfamiliar repo and tackle your first ticket: count orders by branch. | Clear prompts, code completion, and choosing between Ask, Agent and Plan. |
 | [F2. Build Your Personal Agent](./labs/F2-build-your-personal-agent.md) | Give an AI teammate a focused role and clear boundaries. | A shared API Specialist and your own read-only review agent. |
 | [F3. Context Engineering in Practice](./labs/F3-context-engineering.md) | Help Copilot follow the team's conventions instead of guessing. | Reusable repository instructions, project context and skills. |
@@ -68,134 +69,3 @@ Follow the [labs index](./labs/README.md) for the schedule and step-by-step exer
 | [.github/](.github/) | Copilot and GitHub configuration |
 | [.devcontainer/](.devcontainer/) | Codespaces environment setup |
 | [.vscode/](.vscode/) | VS Code tasks, debug and workspace configuration |
-
-## The app
-
-![OctoCAT Supply](./app/frontend/public/hero.png)
-
-OctoCAT Supply is a sample supply chain management app for managing products, suppliers, branches, orders and deliveries. Its React website uses an Express API backed by SQLite, with Swagger documentation for exploring the API.
-
-```mermaid
-erDiagram
-    Headquarters ||--o{ Branch: has
-    Branch ||--o{ Order: placed_at
-    Order ||--o{ OrderDetail: contains
-    OrderDetail ||--o{ OrderDetailDelivery: fulfilled_by
-    OrderDetail }|--|| Product: references
-    Delivery ||--o{ OrderDetailDelivery: includes
-    Supplier ||--o{ Delivery: provides
-```
-
-**Tech stack**
-
-- **Frontend:** React 18, TypeScript, Tailwind CSS and Vite.
-- **Backend:** Express.js, TypeScript and OpenAPI/Swagger.
-- **Data:** SQLite; file-backed for the app and in-memory for tests.
-- **DevOps:** Docker.
-
-## Run the app
-
-### GitHub Codespaces
-
-After automatic setup finishes, run this from the repo root in your codespace:
-
-```bash
-make -C app dev
-```
-
-Open the **Ports** tab and open the forwarded ports:
-- **3000:** API; add `/api-docs` to the forwarded URL for Swagger.
-- **5137:** website.
-
-### Local Node.js and npm (Windows)
-
-Use the latest **Node.js 24.x** release, npm, Git and VS Code on your Windows laptop or Windows DevBox. Run the commands and open the browser on that same machine; `localhost` refers to it. Follow the [Windows setup guide](./labs/01-setup.md#option-b-local-nodejs-and-npm-windows) to install tools and clone the `workshop` branch.
-
-**Managed Windows machines:** before installing dependencies, follow the [enterprise certificate-trust guidance](./labs/01-setup.md#enterprise-certificate-trust) if your organisation requires company certificates or Node reports `unable to get local issuer certificate`. If the approved certificates are already trusted by Windows, run this in the same PowerShell terminal before the installation commands:
-
-```powershell
-$env:NODE_USE_SYSTEM_CA = "1"
-```
-
-This keeps HTTPS verification enabled and uses Windows' trusted certificates. It applies only to that terminal and its child processes; repeat in new terminals when needed. It is not required on every machine or for Codespaces. If it does not resolve the error, use the IT-approved certificate/proxy configuration described in the setup guide.
-
-For the first setup, run these **one at a time** from the repo root in PowerShell. Stop and resolve any error before continuing:
-
-```powershell
-node --version
-npm.cmd --version
-npm.cmd --prefix .\app\api ci --include=optional
-npm.cmd --prefix .\app\frontend ci --include=optional
-npm.cmd --prefix .\app\api run build
-npm.cmd --prefix .\app\frontend run build
-```
-
-`ci` cleanly reinstalls the locked dependencies, including the correct platform-specific packages, without changing your source files or lockfiles. `npm.cmd` avoids PowerShell's `npm.ps1` execution-policy issue.
-
-Then open **two PowerShell terminals at the repo root**.
-
-**Terminal 1 - API:**
-
-```powershell
-npm.cmd --prefix .\app\api run dev
-```
-
-**Terminal 2 - website:**
-
-```powershell
-npm.cmd --prefix .\app\frontend run dev
-```
-
-Open http://localhost:5137 for the website and http://localhost:3000/api-docs for Swagger. The API initializes and seeds SQLite automatically; no separate database server is needed. If Node.js or npm is not recognised, follow the [PowerShell PATH troubleshooting](./labs/01-setup.md#nodejs-installed-but-not-recognised-in-powershell).
-
-Keep both terminals running while using the app. Stop the servers with **Ctrl+C** in each terminal. For later sessions, repeat only the two `run dev` commands; a clean install is not needed every time.
-
-### Codespaces command reference
-
-The following `make` shortcuts are for Codespaces. Local Windows users do not need Make; use the [PowerShell equivalents](./labs/01-setup.md#local-windows-equivalents-for-lab-commands).
-
-| Command | Purpose |
-|---|---|
-| `make -C app dev` | Start the API and website |
-| `make -C app dev-api` | Start only the API |
-| `make -C app dev-frontend` | Start only the website |
-| `make -C app test-api` | Run the API test suite in watch mode; press **q** to quit |
-| `make -C app help` | List available Make targets |
-| `make -C app install` | Install dependencies (already done during setup) |
-| `make -C app build` | Build the API and website |
-| `make -C app db-init` | Apply pending database migrations |
-| `make -C app db-seed` | Apply migrations and seed sample data |
-| `make -C app clean` | Remove build outputs, dependencies and database files at the API folder root |
-
-**Database commands (optional)**
-
-API startup already applies migrations and seeds sample data. To run these manually after building the API:
-
-In Codespaces:
-```bash
-npm --prefix app/api run db:migrate
-npm --prefix app/api run db:seed
-```
-
-In local Windows PowerShell:
-```powershell
-npm.cmd --prefix .\app\api run db:migrate
-npm.cmd --prefix .\app\api run db:seed
-```
-
-The default database is `app/api/data/app.db` (override with `DB_FILE`). WAL mode and foreign keys default to enabled (`DB_ENABLE_WAL` and `DB_FOREIGN_KEYS`).
-
-**VS Code tasks**
-
-Use **Tasks: Run Task** in the Command Palette, then **Build All**, **Build API** or **Build Frontend**. These tasks use each project's npm build script on Windows and in Codespaces. The **Start API & Frontend** debug compound starts both projects from their respective application folders.
-
-## Docs
-
-- [Architecture](./app/docs/architecture.md)
-- [SQLite integration](./app/docs/sqlite-integration.md)
-- [Build and test guide](./app/docs/build.md)
-- [Deployment](./app/docs/deployment.md)
-
-## Credits
-
-Based on [OctoCAT Supply (Azure-Samples)](https://github.com/Azure-Samples/octocat-supply), version **v3.7.0** of the sample.

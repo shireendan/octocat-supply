@@ -122,7 +122,7 @@ Implement the failing tests for the plan in app/docs/tdd-plans/<plan-file>.md. U
 1. Review the new test file (for example `app/api/src/routes/order.test.ts`) and choose **Keep**.
 2. The tests should **fail because the feature doesn't exist yet**, for example with a 404. A typo in the test is the wrong reason: tell tdd-red.
 
-If the agent needs help running tests, use the [setup guide's single-run API test command](01-setup.md#local-windows-equivalents-for-lab-commands) for your environment. A missing command or dependency is not the expected red-phase failure.
+If the agent needs help running tests, use the [single-run API test command reference](troubleshooting.md#local-windows-equivalents-for-lab-commands) for your environment. A missing command or dependency is not the expected red-phase failure.
 
 > **About the buttons:** the agents may show buttons such as **Write Red Tests** and **Write Green Implementation**. They switch agents and send the prompt for you, but only in the *Local* session type, and they send the plan from the *chat*, not your edited file. That's why we use the agent picker and name the file.
 
@@ -144,7 +144,7 @@ From the repo root, use the commands for your environment:
 | API tests | `make -C app test-api` | `npm.cmd --prefix .\app\api test` |
 | Start API | `make -C app dev-api` | `npm.cmd --prefix .\app\api run dev` |
 
-1. Run the API tests. Check that your new and existing API tests pass, then press **q** to quit watch mode. For a single run instead, use the [setup guide's single-run commands](01-setup.md#local-windows-equivalents-for-lab-commands).
+1. Run the API tests. Check that your new and existing API tests pass, then press **q** to quit watch mode. For a single run instead, use the [single-run commands](troubleshooting.md#local-windows-equivalents-for-lab-commands).
 2. Start the API, then open Swagger:
    - **Codespaces:** open **Ports** → **3000** and add `/api-docs` to the forwarded URL.
    - **Windows:** open http://localhost:3000/api-docs on the laptop or DevBox running the API.

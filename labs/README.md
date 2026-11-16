@@ -4,7 +4,7 @@ Welcome! This is your participant guide for the hands-on part of PGGM Innovation
 
 You don't need to know this application or be a TypeScript specialist. Whatever your role, your job is to **describe, review and verify**: give the agent a clear task, judge its suggestions and check that the result actually works.
 
-[Back to the repo README](../README.md) for environments and app commands.
+[Back to the repo README](../README.md) for environments, or the [app README](../app/README.md) for application commands.
 
 **Jump to:** [The application](#meet-octocat-supply) | [Setup options](#before-you-begin) | [Schedule](#schedule) | [How the labs work](#how-the-labs-work) | [Conventions](#conventions-in-the-lab-sheets) | [Getting help](#stuck)
 
@@ -36,18 +36,18 @@ These are deliberately small, understandable requests. The challenge is learning
 
 ## Before you begin
 
-**Codespaces is recommended, not required.** Choose an environment and complete its checks before the training:
+**Windows DevBox/local Node.js and npm is the primary option; GitHub Codespaces is the alternative.** Choose one environment and complete its checks before the training:
 
 | Environment | What you need | Setup |
 |---|---|---|
-| **GitHub Codespaces (recommended)** | A GitHub account with repo access, a Copilot license and Codespaces access | [Codespaces setup](01-setup.md#option-a-github-codespaces-recommended) |
-| **Native Windows Node.js and npm (laptop or DevBox)** | VS Code, Git, the latest Node.js 24.x release (npm included), repo access and a Copilot license; no Docker or `make` required | [Windows setup](01-setup.md#option-b-local-nodejs-and-npm-windows) |
+| **1. Windows DevBox/local (recommended)** | VS Code, Git, Node.js 24.x (npm included), repo access and a Copilot license. Python 3.12.x is recommended if native-module compilation is needed; no Docker or `make` required. | [Windows setup](01-setup.md#option-a-local-nodejs-and-npm-windows) |
+| **2. GitHub Codespaces** | A GitHub account with repo access, a Copilot license and Codespaces access | [Codespaces setup](01-setup.md#option-b-github-codespaces) |
 
-Both options cover the same labs. Codespaces prepares the tools automatically; Windows users install dependencies and build with npm, then run the API and website in two PowerShell terminals on their laptop or DevBox. A Windows DevBox uses this same native Node/npm route, not a separate container setup. Open the local app URLs in a browser on the machine running the app.
+Both options cover the same labs. Windows users follow the [Node.js and Python installation guidance](01-setup.md#install-nodejs-and-python), install dependencies and build with npm, then run the API and website in two PowerShell terminals on their laptop or DevBox. A Windows DevBox uses this same native Node/npm route, not a separate container setup. Open the local app URLs in a browser on the machine running the app. Codespaces prepares its tools automatically.
 
 **Use the shared baseline:** Node.js **24.x** and the committed lockfiles.
 
-On managed Windows machines, check the [enterprise certificate-trust guidance](01-setup.md#enterprise-certificate-trust) **before npm installation** if company certificates are required or certificate errors appear. The Windows trust-store setting preserves HTTPS verification and is terminal-scoped; it is not a requirement for every participant or for Codespaces.
+On managed Windows machines, check the [enterprise certificate-trust guidance](troubleshooting.md#enterprise-certificate-trust) **before npm installation** if company certificates are required or certificate errors appear. The Windows trust-store setting preserves HTTPS verification and is terminal-scoped; it is not a requirement for every participant or for Codespaces.
 
 Follow your option's setup and app checks before the training. If installation permissions, enterprise network restrictions or time prevent a working setup, contact IT or ask about pairing with someone whose environment is ready.
 
@@ -104,10 +104,10 @@ Copilot is **probabilistic**: the same request can produce different wording, fi
 Not every grey code block belongs in the same place. Read the sentence above it:
 
 - **"Send" or "ask Copilot":** paste the text into **Chat** as a prompt.
-- **"Run in the terminal":** use your Codespaces terminal, or local PowerShell with the [command equivalents](01-setup.md#local-windows-equivalents-for-lab-commands) instead of `make`. Unless a step says otherwise, start from the repository root.
+- **"Run in the terminal":** use Windows PowerShell with the [command equivalents](troubleshooting.md#local-windows-equivalents-for-lab-commands) instead of `make`, or your Codespaces terminal. Unless a step says otherwise, start from the repository root.
 - **"Create", "replace" or "paste into a file":** edit the named file. A Markdown or JSON example is file content, not a terminal command.
 
-The labs use **API-only tests**: `make -C app test-api` in Codespaces or `npm.cmd --prefix .\app\api test` in Windows PowerShell. Press **q** to leave watch mode, or use the [single-run commands](01-setup.md#local-windows-equivalents-for-lab-commands) when an agent runs tests.
+The labs use **API-only tests**: `npm.cmd --prefix .\app\api test` in Windows PowerShell or `make -C app test-api` in Codespaces. Press **q** to leave watch mode, or use the [single-run commands](troubleshooting.md#local-windows-equivalents-for-lab-commands) when an agent runs tests.
 
 The code-block copy button saves typing; it doesn't decide where the text should go.
 
@@ -143,7 +143,7 @@ A different answer from your neighbour is not automatically a problem. First che
 
 | Situation | Useful next step |
 |---|---|
-| The codespace or local workspace, Copilot sign-in or app won't start | Open the [setup troubleshooting](01-setup.md#troubleshooting) and ask a facilitator if it persists. |
+| The codespace or local workspace, Copilot sign-in or app won't start | Open [troubleshooting](troubleshooting.md#common-problems) and ask a facilitator if it persists. |
 | Codespaces is unavailable or local software installation is restricted | Check the [environment options](01-setup.md#1-choose-your-environment) with a facilitator. If none can be ready in time, ask about pairing with someone who has a working setup. |
 | A menu or agent isn't available as described | Check that lab's fallback instructions. UI labels and available controls can vary; don't spend the session hunting for a button. |
 | The agent edited more than you requested | Stop it, review the affected changes and ask for help if you're unsure what to undo. Don't accept unrelated edits to keep moving. |
@@ -158,7 +158,7 @@ A Catch up command takes the reference version of **the file named in that comma
 - **Use the exact step in the current lab.** Don't reset the whole workspace or restore the entire branch. Some labs require another action afterwards; for example, F3 asks you to reapply its team rule after restoring the instructions.
 - **It isn't a universal solution.** F1 and F4 have no finished feature answer key to restore. Use the requirements, tests and facilitator support instead.
 
-The [setup guide](01-setup.md) explains how to view, compare and restore reference files. You can compare first without replacing your work.
+The [reference-file guide](troubleshooting.md#get-the-reference-files) explains how to view, compare and restore files. You can compare first without replacing your work.
 
 ## Before moving on
 

@@ -68,7 +68,7 @@ Max 40 lines. Don't change any other file.
 Describe the app only; ignore the labs/ folder.
 ```
 1. **Keep** the change, then open the file.
-2. Check its commands against the [app/Makefile](../app/Makefile), [API scripts](../app/api/package.json), [frontend scripts](../app/frontend/package.json) and [setup command table](01-setup.md#local-windows-equivalents-for-lab-commands). It should cover both environments. For API tests, use **Codespaces:** `make -C app test-api`; **Windows PowerShell:** `npm.cmd --prefix .\app\api test`. Tests keep watching for changes; press **q** to quit.
+2. Check its commands against the [app/Makefile](../app/Makefile), [API scripts](../app/api/package.json), [frontend scripts](../app/frontend/package.json) and [command reference](troubleshooting.md#local-windows-equivalents-for-lab-commands). It should cover both environments. For API tests, use **Codespaces:** `make -C app test-api`; **Windows PowerShell:** `npm.cmd --prefix .\app\api test`. Tests keep watching for changes; press **q** to quit.
 3. Fix anything that's made up, because wrong instructions mislead every future chat.
 
 > In the *Local* session type, `/init` does the same job. Typing the request works everywhere.
@@ -134,7 +134,7 @@ Skim these sections:
 
 Then peek into [references/](../.github/skills/api-endpoint/references/): [database conventions](../.github/skills/api-endpoint/references/database-conventions.md), [error handling](../.github/skills/api-endpoint/references/error-handling.md), [Swagger patterns](../.github/skills/api-endpoint/references/swagger-patterns.md) and [testing patterns](../.github/skills/api-endpoint/references/testing-patterns.md).
 
-> **Use this repo's test commands:** the testing reference contains `--workspace=api` examples, but this repo has no root npm workspace. Use the API commands in B5 or the [setup command table](01-setup.md#local-windows-equivalents-for-lab-commands) instead. To filter tests by name, Vitest uses `-t` / `--testNamePattern`, not the reference's `--grep`. Check the agent's commands too; a setup error is not a failing feature test.
+> **Use this repo's test commands:** the testing reference contains `--workspace=api` examples, but this repo has no root npm workspace. Use the API commands in B5 or the [command reference](troubleshooting.md#local-windows-equivalents-for-lab-commands) instead. To filter tests by name, Vitest uses `-t` / `--testNamePattern`, not the reference's `--grep`. Check the agent's commands too; a setup error is not a failing feature test.
 
 ### B3. Write the "when" (⏱ 5 min)
 Add this at the **very top** of [SKILL.md](../.github/skills/api-endpoint/SKILL.md), then write your description:
@@ -181,7 +181,7 @@ Watch for the skill being loaded: it shows up in the references or tool calls of
    - **Windows:** open http://localhost:3000/api-docs on the laptop or DevBox running the API.
 4. Try an endpoint with **Try it out**. **Codespaces only:** if Swagger targets `localhost`, use the same endpoint path on the forwarded port URL instead. Stop the API with **Ctrl+C** when finished.
 
-For automated agent test runs, use the [single-run commands](01-setup.md#local-windows-equivalents-for-lab-commands) rather than leaving a watcher running.
+For automated agent test runs, use the [single-run commands](troubleshooting.md#local-windows-equivalents-for-lab-commands) rather than leaving a watcher running.
 
 | Role | Your focus |
 |---|---|

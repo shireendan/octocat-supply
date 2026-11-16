@@ -154,7 +154,7 @@ F1 has no answer key, because every endpoint will look a little different. Compa
 Nothing later today depends on F1. Keep your changes, or discard them with **Source Control** → **…** → **Discard All Changes**.
 
 ## Extensions (if you finish early)
-- Agent: `Write unit tests for countByBranch following the style of the existing repository tests.` Then run the API tests from the repo root: **Codespaces:** `make -C app test-api`; **Windows PowerShell:** `npm.cmd --prefix .\app\api test`. Tests keep watching for changes; press **q** to quit. For a single run, use the [setup guide's test commands](01-setup.md#local-windows-equivalents-for-lab-commands).
+- Agent: `Write unit tests for countByBranch following the style of the existing repository tests.` Then run the API tests from the repo root: **Codespaces:** `make -C app test-api`; **Windows PowerShell:** `npm.cmd --prefix .\app\api test`. Tests keep watching for changes; press **q** to quit. For a single run, use the [test command reference](troubleshooting.md#local-windows-equivalents-for-lab-commands).
 - Send the 1.2 prompt again with a different model from the model picker. What changes?
 
 ## Think about this for the wrap-up
