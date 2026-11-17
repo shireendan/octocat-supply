@@ -1,61 +1,12 @@
 # PGGM Innovation Day: Foundation Track labs
 
-Welcome! This is your participant guide for the hands-on part of PGGM Innovation Day. We'll follow a familiar engineering journey: join an unfamiliar project, understand what its users need, learn the team's way of working and deliver a feature with GitHub Copilot.
+Practise GitHub Copilot with [OctoCAT Supply](../app/README.md), a fictional smart-cat-products application. Your role is to **describe, review and verify**.
 
-You don't need to know this application or be a TypeScript specialist. Whatever your role, your job is to **describe, review and verify**: give the agent a clear task, judge its suggestions and check that the result actually works.
+**Before F1:** follow [01-setup.md](01-setup.md).
 
-[Back to the repo README](../README.md) for environments, or the [app README](../app/README.md) for application commands.
+[Back to the repo README](../README.md)
 
-**Jump to:** [The application](#meet-octocat-supply) | [Setup options](#before-you-begin) | [Schedule](#schedule) | [How the labs work](#how-the-labs-work) | [Conventions](#conventions-in-the-lab-sheets) | [Getting help](#stuck)
-
-## Meet OctoCAT Supply
-
-**OctoCAT Supply is a fictional business that sells smart cat products through a network of branches.** Think automatic feeders, smart collars and cat cameras. The sample application combines a customer-facing product catalog with the business records needed to organise products, branch orders and supplier deliveries.
-
-Here's what those terms mean in everyday use:
-
-| Part of the business | What it represents |
-|---|---|
-| **Products** | The items the business offers, with names, descriptions, prices and a supplier. Customers browse and search the catalog; product administrators maintain its entries. |
-| **Suppliers** | The businesses providing those products. Product and delivery records identify the relevant supplier. |
-| **Headquarters and branches** | The organisation's locations. A branch belongs to a headquarters and places its own orders. |
-| **Orders** | A branch's requests for products, with an order date and status. A manager needs to distinguish their branch's orders from everyone else's. |
-| **Order lines** | The individual products in an order: which item, how many units and at what unit price. One order can contain several lines. |
-| **Deliveries** | Shipments from suppliers. Delivery records can be linked to order lines to record which quantities have been fulfilled. |
-
-### A business problem behind your first tickets
-
-Imagine you manage a branch that has ordered ten **SmartFeeder One** units. You don't want to search through every other branch's orders just to find your own work.
-
-- **"How many orders does my branch have?"** gives you a quick view of its workload. In [F1](F1-prompting-fundamentals.md), you add an API operation to answer that question.
-- **"Show me the orders for my branch."** gives you the actual list to work through. In [F4](F4-mcp-and-spec-driven.md), you specify, test and implement that feature.
-
-These are deliberately small, understandable requests. The challenge is learning how to find the right part of an existing application, describe the change precisely and prove that it works.
-
-**A note on scope:** this is a training sample, not a PGGM system or a complete commerce platform. The website supports browsing products and product administration, but not every business operation has a finished website screen. We'll explore some operations through **Swagger**, the interactive API documentation where you can try requests in your browser. The cart exercise in F1 is a planning exercise, not a request to build a complete checkout.
-
-## Before you begin
-
-**Windows DevBox/local Node.js and npm is the primary option; GitHub Codespaces is the alternative.** Choose one environment and complete its checks before the training:
-
-| Environment | What you need | Setup |
-|---|---|---|
-| **1. Windows DevBox/local (recommended)** | VS Code, Git, Node.js 24.x (npm included), repo access and a Copilot license. Python 3.12.x is recommended if native-module compilation is needed; no Docker or `make` required. | [Windows setup](01-setup.md#option-a-local-nodejs-and-npm-windows) |
-| **2. GitHub Codespaces** | A GitHub account with repo access, a Copilot license and Codespaces access | [Codespaces setup](01-setup.md#option-b-github-codespaces) |
-
-Both options cover the same labs. Windows users follow the [Node.js and Python installation guidance](01-setup.md#install-nodejs-and-python), install dependencies and build with npm, then run the API and website in two PowerShell terminals on their laptop or DevBox. A Windows DevBox uses this same native Node/npm route, not a separate container setup. Open the local app URLs in a browser on the machine running the app. Codespaces prepares its tools automatically.
-
-**Use the shared baseline:** Node.js **24.x** and the committed lockfiles.
-
-On managed Windows machines, check the [enterprise certificate-trust guidance](troubleshooting.md#enterprise-certificate-trust) **before npm installation** if company certificates are required or certificate errors appear. The Windows trust-store setting preserves HTTPS verification and is terminal-scoped; it is not a requirement for every participant or for Codespaces.
-
-Follow your option's setup and app checks before the training. If installation permissions, enterprise network restrictions or time prevent a working setup, contact IT or ask about pairing with someone whose environment is ready.
-
-**Use the lab sheets for current commands and paths.** The [slide exports](./slides/) still show the earlier layout in places. Application paths are now rooted under `app/`, and root-level Make commands use `make -C app ...`. Follow the updated lab sheets rather than copying older commands from a slide.
-
-1. Follow [01-setup.md](01-setup.md) before F1. It covers your environment, the `workshop` branch, getting the reference files, checking the app and Copilot, and troubleshooting.
-2. Keep the current lab sheet open next to your workspace. On GitHub, use a second browser tab so you can copy prompts and commands. In VS Code, right-click the lab file and choose **Open Preview** for the formatted view.
-3. Read the opening story and completion checks before starting each lab. They explain what you're trying to achieve; the numbered steps then guide you through it.
+**Jump to:** [Schedule](#schedule) | [How the labs work](#how-the-labs-work) | [Conventions](#conventions-in-the-lab-sheets) | [Getting help](#stuck)
 
 ## Schedule
 
@@ -71,29 +22,13 @@ Each session includes an introduction, hands-on work and a wrap-up. The shorter 
 
 ## How the labs work
 
-### A repeatable rhythm
+- **Follow the lab sheet.** Read the story and completion checks, then follow the numbered steps and boundaries, including plan-only tasks.
+- **Keep one workspace on `workshop` all day.** Missing F2/F3 configuration is intentional. Follow handover and cleanup steps, including removing the fictional TAO rule before generating real code.
+- **Review and verify.** Inspect changes and run the required checks. Judge results against the requirements, not your neighbour's exact output.
+- **Use `main` for comparison, not as your working branch.** It contains configuration references, not finished F1/F4 features.
+- **Pair where possible.** Swap driving and reviewing, and bring one takeaway to the wrap-up. Extensions are optional.
 
-1. **Understand the idea.** A short introduction explains the technique and why you would use it in everyday engineering.
-2. **Try it on a real task.** Follow the lab's numbered steps. Some deliberately compare a baseline with an improved prompt or better context, so don't skip straight to the "better" version.
-3. **Inspect the evidence.** Review the changed files, try the operation or run the checks the lab asks for. A confident answer from Copilot is not a substitute for a working result.
-4. **Compare and reflect.** Discuss what changed and why. The wrap-up is about what you could reuse in your own work, not whose agent generated the most code.
-
-Read each step's boundaries carefully. **"Don't implement anything"**, **"only edit this file"** and **"don't change the tests"** are part of the exercise: they help you practise controlling an agent's scope.
-
-### One application and one evolving workspace
-
-You use OctoCAT Supply throughout the day rather than starting a different demo each session. Keep your workspace between sessions and follow any **Before you leave** or **Before you start** instructions in the lab sheets.
-
-- **`workshop` is your working branch.** Selected Copilot configuration was deliberately removed or left incomplete for F2 and F3. Rebuilding it lets you see what changes when an agent has a role, team instructions or a reusable skill. A **Missing on your branch** note describes that starting point; it doesn't mean your setup failed.
-- **`main` provides reference material, not an answer to every task.** Some **Compare** steps use the original configuration to give you ideas. F1 and F4 do not have a finished feature solution on `main`; their checks, and in F4 your specification and tests, determine whether you're done.
-- **Compare does not mean copy everything.** Your wording and implementation can differ. Look for useful differences in behaviour, scope and completeness. Work on `workshop`; don't switch to or commit to `main` to complete a lab.
-- **Carry forward the right context, not every experiment.** For example, F4 asks you to remove the fictional TAO team rule introduced in F3 before agents write real code. Follow that cleanup step rather than carrying an intentionally made-up dependency into the next feature.
-
-### Work as an engineer, not a spectator
-
-Work in mixed pairs where possible, such as a backend developer with a platform engineer. One person can drive while the other checks the plan and changes; swap roles along the way.
-
-Copilot is **probabilistic**: the same request can produce different wording, filenames or approaches. That's expected. Compare whether the result meets the requirement, respects the boundaries and passes the relevant checks, not whether it matches your neighbour's output line for line.
+Use the lab sheets for current commands and paths; the [slides](./slides/) still show the older layout in places.
 
 ## Conventions in the lab sheets
 
@@ -130,16 +65,7 @@ When a lab says **Ports** then **3000**, local users open http://localhost:3000/
 
 ## Stuck?
 
-**Being stuck means you can't confidently take the next step.** That might be a command failing, Copilot not responding, a missing menu, an unexpected result or simply not understanding what you're being asked to do. It is not a failure, and you don't need to spend the whole lab debugging alone.
-
-A different answer from your neighbour is not automatically a problem. First check whether yours meets the lab's completion criteria.
-
-### What to do next
-
-1. **Pause and locate the problem.** Note the lab and step, what you expected and what actually happened. If the agent is making unwanted changes, stop it and inspect the changes before accepting anything.
-2. **Check the immediate context.** Are you in the requested chat mode, on `workshop`, using the right file and replacing the placeholders? For a failed command, keep the actual error message rather than only the agent's summary.
-3. **Ask for help early.** Raise your hand or ask your pair. Show the facilitator the step and the relevant screen, error or changed file. "F2, A4: my agent isn't in the picker" is much easier to help with than "it doesn't work".
-4. **Choose a recovery that fits the problem.** Use the setup troubleshooting for environment issues, the lab's fallback for a missing control, or its specific Catch up step when you need a reference file.
+Check the lab's completion criteria, chat mode, branch, files and placeholders. **Ask your pair or a facilitator early**; show the lab/step, expected result and actual error or changed file.
 
 | Situation | Useful next step |
 |---|---|
@@ -159,9 +85,3 @@ A Catch up command takes the reference version of **the file named in that comma
 - **It isn't a universal solution.** F1 and F4 have no finished feature answer key to restore. Use the requirements, tests and facilitator support instead.
 
 The [reference-file guide](troubleshooting.md#get-the-reference-files) explains how to view, compare and restore files. You can compare first without replacing your work.
-
-## Before moving on
-
-Check the lab's completion criteria, review what changed and follow its handover or cleanup instructions. Bring one observation to the wrap-up: what context helped, what suggestion you rejected, or what evidence made you trust the result.
-
-The aim is to leave with a way of working you can apply at PGGM: **understand the problem, give the agent the right context, keep control of the decisions and verify the outcome.**
