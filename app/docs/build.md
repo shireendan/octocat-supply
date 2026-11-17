@@ -8,7 +8,7 @@ Run commands from the **repository root**, which contains `app` and `labs`. Keep
 
 
 
-- Node.js 24.x (npm included)
+- Node.js 24.x, or Node.js 26.x on managed DevBoxes after the [API SQLite update](../../labs/01-setup.md#install-dependencies-and-build) (npm included)
 - npm (latest version recommended)
 
 - Docker/Podman (optional, for containerization)

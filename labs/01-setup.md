@@ -24,15 +24,17 @@ Use **Windows DevBox/local** as the primary option, or **Codespaces** as the alt
 
 #### Install Node.js and Python
 
-Use your organisation's approved installers. Skip installation for tools already available on your DevBox.
+Skip tools already installed. On a **managed DevBox**, use the configured Chocolatey command in PowerShell:
 
-- Install [VS Code](https://code.visualstudio.com/) and [Git](https://git-scm.com/downloads).
-- Install **Node.js 24.x**, not 26, using the Windows `.msi` from the [Node.js 24 downloads](https://nodejs.org/download/release/latest-v24.x/). Keep npm and **Add to PATH** enabled.
-- **Python 3.12.x** is recommended if SQLite needs native compilation. Install in Windows, not only WSL. If needed and WinGet is permitted:
-  ```powershell
-  winget install --id Python.Python.3.12 --exact --source winget
-  ```
-  Verify it in a fresh terminal with `py -3.12 --version`. An existing approved, working Python 3 setup does not need replacing. See [native-build help](troubleshooting.md#native-module-build-tools) if compilation fails.
+```powershell
+choco install vscode git nodejs
+```
+
+The managed installation uses the organisation's **ProGet feed** and handles the required installation rights. That feed currently provides **Node.js 26.x**. Do not use WinGet or public MSI installers on this DevBox, or change Chocolatey sources; ask IT if the command is unavailable or fails.
+
+On **other Windows machines**, use approved installers for [VS Code](https://code.visualstudio.com/), [Git](https://git-scm.com/downloads) and [Node.js 24.x](https://nodejs.org/download/release/latest-v24.x/) with npm and **Add to PATH** enabled.
+
+**Python 3.12.x** is only needed if SQLite requires native compilation. Obtain it through your approved software process or IT, install it in Windows rather than only WSL, and verify with `py -3.12 --version` in a fresh terminal. Do not replace an existing approved, working Python 3 setup. See [native-build help](troubleshooting.md#native-module-build-tools) if compilation fails.
 
 #### Prepare your workspace
 
@@ -44,7 +46,7 @@ npm.cmd --version
 git --version
 ```
 
-Node should report `v24.x`. Then clone **your new repo's** `workshop` branch from the folder where you want your checkout. Replace `<YOUR-OWNER>` before running:
+Expect `v26.x` from the managed DevBox feed, or `v24.x` for the other Windows setup. An existing Node 24 installation can use the Node 24 commands below. Then clone **your new repo's** `workshop` branch from the folder where you want your checkout. Replace `<YOUR-OWNER>` before running:
 
 ```powershell
 git clone --branch workshop "https://github.com/<YOUR-OWNER>/octocat-supply-participants.git"
@@ -60,8 +62,25 @@ In VS Code, open **Terminal > New Terminal** using PowerShell at the repo root. 
 
 Stop any running app servers before reinstalling. Run these **one at a time; stop if any command fails**:
 
+**First install API dependencies: choose one command matching `node --version`.**
+
+**Node 26.x (managed DevBox):** update SQLite instead of installing the older locked API version:
+
+```powershell
+npm.cmd --prefix .\app\api update better-sqlite3 --include=optional
+```
+
+This installs a newer SQLite package and updates the API lockfile for Node 26. Keep that updated lockfile.
+
+**Node 24.x:** install the locked API dependencies:
+
 ```powershell
 npm.cmd --prefix .\app\api ci --include=optional
+```
+
+**Then, for either Node version:**
+
+```powershell
 npm.cmd --prefix .\app\frontend ci --include=optional
 npm.cmd --prefix .\app\api run build
 npm.cmd --prefix .\app\frontend run build
@@ -69,7 +88,7 @@ npm.cmd --prefix .\app\frontend run build
 
 ### Option B: GitHub Codespaces
 
-Use this alternative if you cannot prepare the Windows environment. Node.js, Python and the other tools are provided automatically.
+Use this alternative if you cannot prepare the Windows environment. Node.js 24.x, Python and the other tools are provided automatically; the Node 26 SQLite update is not needed here.
 
 1. On GitHub, open **your new repo**, not the shared template, and select branch `workshop`.
 2. Choose **Code > Codespaces** and create a codespace on `workshop`, using at least **4 cores and 8 GB RAM**. Use **New with options** if you need to choose the machine.

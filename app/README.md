@@ -26,7 +26,7 @@ erDiagram
 
 ### Windows DevBox/local (primary option)
 
-Use the latest **Node.js 24.x** release, npm, Git and VS Code on your Windows DevBox or laptop. Run the commands and open the browser on that same machine; `localhost` refers to it. Follow the [Windows setup guide](../labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](../labs/01-setup.md#install-nodejs-and-python), to prepare the tools and clone the `workshop` branch.
+Use the approved **Chocolatey/ProGet** route on managed DevBoxes, which currently provides **Node.js 26.x**, or **Node.js 24.x** on other Windows machines, with npm, Git and VS Code. Run the commands and open the browser on that same machine; `localhost` refers to it. Follow the [Windows setup guide](../labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](../labs/01-setup.md#install-nodejs-and-python), to prepare the tools and clone the `workshop` branch.
 
 **Managed Windows machines:** before installing dependencies, follow the [enterprise certificate-trust guidance](../labs/troubleshooting.md#enterprise-certificate-trust) if your organisation requires company certificates or Node reports `unable to get local issuer certificate`. If the approved certificates are already trusted by Windows, run this in the same PowerShell terminal before the installation commands:
 
@@ -41,13 +41,31 @@ For the first setup, run these **one at a time** from the repo root in PowerShel
 ```powershell
 node --version
 npm.cmd --version
+```
+
+**API dependencies - choose one command matching your Node version.**
+
+**Node 26.x:** apply the required SQLite update:
+
+```powershell
+npm.cmd --prefix .\app\api update better-sqlite3 --include=optional
+```
+
+**Node 24.x:** install the locked API dependencies:
+
+```powershell
 npm.cmd --prefix .\app\api ci --include=optional
+```
+
+**Then, for either Node version:**
+
+```powershell
 npm.cmd --prefix .\app\frontend ci --include=optional
 npm.cmd --prefix .\app\api run build
 npm.cmd --prefix .\app\frontend run build
 ```
 
-`ci` cleanly reinstalls the locked dependencies, including the correct platform-specific packages, without changing your source files or lockfiles. `npm.cmd` avoids PowerShell's `npm.ps1` execution-policy issue.
+`ci` cleanly reinstalls the locked dependencies, including the correct platform-specific packages, without changing your source files or lockfiles. The Node 26 API update intentionally updates the API lockfile; keep that updated file. `npm.cmd` avoids PowerShell's `npm.ps1` execution-policy issue.
 
 Then open **two PowerShell terminals at the repo root**.
 

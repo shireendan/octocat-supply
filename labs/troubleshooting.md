@@ -10,13 +10,14 @@ You do not need to read this guide before starting. Use the relevant section if 
 |---|---|
 | Local software installation is restricted or setup cannot finish in time | Check whether [Codespaces](01-setup.md#option-b-github-codespaces) is available, or ask a facilitator about pairing. Do not bypass organisation policies. |
 | Codespaces is unavailable | Follow the primary [Windows setup](01-setup.md#option-a-local-nodejs-and-npm-windows). |
-| `node`, `npm` or `npm.cmd` is not recognised | Install Node.js 24.x, restart VS Code, and use the [PATH checks](#nodejs-installed-but-not-recognised-in-powershell). |
+| `choco` is unavailable or installation is blocked on the managed DevBox | Ask IT for the approved Chocolatey/ProGet route. Do not install Chocolatey yourself, change feeds or switch to public installers. |
+| `node`, `npm` or `npm.cmd` is not recognised | Follow the [approved installation route](01-setup.md#install-nodejs-and-python), restart VS Code, and use the [PATH checks](#nodejs-installed-but-not-recognised-in-powershell). |
 | PowerShell says `npm.ps1` cannot be loaded | Use `npm.cmd` as shown in setup; do not change the execution policy. |
-| Dependency installation or a build fails locally | Check that `node --version` reports 24.x. Keep the full error and ask a facilitator before continuing. |
+| Dependency installation or a build fails locally | Check `node --version`: managed DevBoxes use 26.x with the [SQLite update](#node-26-and-sqlite); the other Windows setup uses 24.x. Keep the full error and ask a facilitator before continuing. |
 | Rollup's platform package is missing or SQLite reports `invalid ELF header` | Stop the servers and repeat the clean-install commands in [setup](01-setup.md#install-dependencies-and-build). In Codespaces, run `npm ci --include=optional` from the affected project's directory. Do not delete lockfiles or share installed dependencies between Windows and Linux. |
 | SQLite installation reports `node-gyp`, Python or Visual Studio build errors | Fix any earlier certificate/download error first, then check the [native-build requirements](#native-module-build-tools). |
 | npm reports `unable to get local issuer certificate`, SSL/TLS or proxy errors | Follow [enterprise certificate trust](#enterprise-certificate-trust), then ask IT about remaining CA-chain, proxy or package-mirror requirements. |
-| npm warns that the Node engine is unsupported | Use the [Node 24 baseline](01-setup.md#install-nodejs-and-python). Do not change dependencies or remove lockfiles just to suppress the warning. |
+| npm warns that the Node engine is unsupported | Check which package is named. For `better-sqlite3` on Node 26, use the [SQLite update](#node-26-and-sqlite). For other warnings, ask a facilitator; do not delete lockfiles or make arbitrary dependency changes. |
 | `npm ci` reports a missing or out-of-sync lockfile | Check that you opened the intended `workshop` checkout. Keep the lockfiles and share the full error with a facilitator. |
 | Only `reference_solution` is listed / no `origin` | See [branch recovery](#recovery-workshop-branch-missing). |
 | `reference_solution` is missing | Your template copy needed **Include all branches**. Keep your work and see [reference-file help](#get-the-reference-files). |
@@ -38,7 +39,7 @@ Test-Path "C:\Program Files\nodejs\node.exe"
 Test-Path "C:\Program Files\nodejs\npm.cmd"
 ```
 
-If either returns `False`, check the installation location or install Node.js 24.x with npm. If both return `True`, run this in each PowerShell terminal you will use:
+If either returns `False`, check the installation location or use the [approved installation route](01-setup.md#install-nodejs-and-python) with npm included. If both return `True`, run this in each PowerShell terminal you will use:
 
 ```powershell
 $env:Path = "C:\Program Files\nodejs;$env:Path"
@@ -60,7 +61,7 @@ If your organisation's approved certificates are already trusted by Windows, run
 $env:NODE_USE_SYSTEM_CA = "1"
 ```
 
-This is supported in Node.js 24.6.0 and newer 24.x releases. It adds Windows' trusted CAs to Node's existing trust roots, keeps HTTPS verification enabled, and leaves `NODE_OPTIONS` unchanged. It affects only processes started from that terminal and their children; repeat it in new terminals when needed.
+This is supported in Node.js 24.6.0 and newer 24.x releases, and in Node.js 26.x. It adds Windows' trusted CAs to Node's existing trust roots, keeps HTTPS verification enabled, and leaves `NODE_OPTIONS` unchanged. It affects only processes started from that terminal and their children; repeat it in new terminals when needed.
 
 If the error remains, ask IT to check the approved certificate chain and proxy configuration for the failing download host. npm packages, SQLite's prebuilt binaries and Node's build headers can use different hosts.
 
@@ -68,8 +69,9 @@ If IT provides a PEM-format CA bundle, use its actual path. For example, from th
 
 ```powershell
 $env:NODE_EXTRA_CA_CERTS = "C:\certs\company-ca-bundle.pem"
-npm.cmd --prefix .\app\api ci --include=optional
 ```
+
+Then retry the dependency command for your Node version from [setup](01-setup.md#install-dependencies-and-build).
 
 The path is an example, not a file included in this repo. Use only the approved bundle supplied by IT. Node reads it when a new process starts, and it can be used alongside `NODE_USE_SYSTEM_CA`. Follow IT's proxy or internal-mirror instructions where required; do not disable certificate verification or bypass organisation controls.
 
@@ -80,10 +82,22 @@ Changing Node versions or installing Python does not fix certificate trust. See 
 The app runs on Node.js/TypeScript. Python is only needed when a native dependency, such as the SQLite connector, must be compiled because a compatible prebuilt binary is unavailable or its download failed.
 
 - Use the [Windows Python installation guidance](01-setup.md#install-nodejs-and-python). Python installed only in WSL is not automatically usable by Windows npm.
+- On Node 26, apply the [SQLite update](#node-26-and-sqlite) before troubleshooting compilation of the older connector.
 - Compilation also needs approved Windows C++ build tools. Ask IT for the appropriate Visual Studio **Desktop development with C++** workload; Windows on ARM may need additional ARM64 components.
 - Fix certificate/download problems first. Compilation may itself need HTTPS downloads, so Python alone does not resolve a certificate error.
 
 See the [node-gyp installation requirements](https://github.com/nodejs/node-gyp#installation). Do not install additional build tools or change organisation policies without approval.
+
+### Node 26 and SQLite
+
+The original API lockfile pins an older `better-sqlite3`. For the managed DevBox's Node 26, run from the repo root:
+
+```powershell
+npm.cmd --prefix .\app\api update better-sqlite3 --include=optional
+npm.cmd --prefix .\app\api ls better-sqlite3
+```
+
+Node 26 needs a recent 12.x release declaring Node 26 support, such as **12.10.0 or newer**. The update stays within the API's existing dependency range and intentionally updates its lockfile; keep that file for later installs. If your configured registry still supplies an older version or the update fails, share the full output with IT or a facilitator. Do not change registries or disable HTTPS verification. Updating SQLite does not fix a separate certificate-trust problem.
 
 ## Recovery: workshop branch missing
 
@@ -127,7 +141,7 @@ npm.cmd --prefix .\app\api test -- --run
 npm --prefix app/api test -- --run
 ```
 
-The initial setup uses `ci` to replace installed dependencies with the locked versions, including platform-specific packages. It does not change source files or lockfiles. Use `install` when deliberately changing dependencies so the matching lockfile is updated.
+`ci` replaces installed dependencies with the locked versions, including platform-specific packages, without changing source files or lockfiles. The Node 26 API setup instead uses `update better-sqlite3` and intentionally updates the API lockfile. Follow the [version-specific setup](01-setup.md#install-dependencies-and-build) for the first installation. Use `install` when deliberately changing other dependencies so the matching lockfile is updated.
 
 ## Get the reference files
 

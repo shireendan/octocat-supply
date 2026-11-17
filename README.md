@@ -20,7 +20,7 @@ Our shared application is **OctoCAT Supply**, a sample supply-chain app, not a P
 
 ## Environment options
 
-- **Option 1 - Windows DevBox/local (recommended):** run Node.js/npm directly on a Windows DevBox or laptop, using VS Code, Git and Node.js **24.x** (npm included). Follow the [Windows setup](./labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](./labs/01-setup.md#install-nodejs-and-python). No Docker or `make` is required.
+- **Option 1 - Windows DevBox/local (recommended):** use the approved **Chocolatey/ProGet** installation on managed DevBoxes (**Node.js 26.x**), or **Node.js 24.x** on other Windows machines, with npm, Git and VS Code. Follow the [Windows setup](./labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](./labs/01-setup.md#install-nodejs-and-python). No Docker or `make` is required.
 - **Option 2 - GitHub Codespaces:** follow the [Codespaces setup](./labs/01-setup.md#option-b-github-codespaces) for a cloud workspace with tools, dependencies and builds prepared automatically.
 
   Create the Codespace from **your own generated repo** on `workshop`, not from the shared template.
@@ -29,7 +29,7 @@ Both options use the same app and labs, with **3000** for the API and **5137** f
 
 Open the **repository root** in VS Code: [app/](./app/) contains the application and [labs/](./labs/) contains the exercises. Repository-wide configuration stays at the root so GitHub, Codespaces and Copilot can discover it.
 
-**Version baseline:** use the latest **Node.js 24.x** release and the committed dependency lockfiles. Node 26 is not the workshop baseline.
+**Node versions:** managed DevBoxes use **26.x** with the required [API SQLite update](./labs/01-setup.md#install-dependencies-and-build), which updates the API lockfile. Codespaces and the other Windows setup use **24.x**. Keep the appropriate lockfiles; do not delete them.
 
 Complete the app and Copilot checks before the training. Both options require repo access and a working Copilot license; local setup also needs permission to install tools and download packages. If installation or enterprise network restrictions prevent a working setup, contact IT or ask a facilitator about pairing with someone whose environment is ready.
 
