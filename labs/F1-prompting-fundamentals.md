@@ -37,7 +37,7 @@ Build a small feature in an unfamiliar application: count the orders belonging t
 
 ## Before you start
 
-Complete the [setup checks](01-setup.md). Follow Parts 1–4 in order, run commands only when the sheet asks, and review changes before choosing **Keep**.
+Complete the [setup checks](01-setup.md), then work in **your own template-based repo** on `workshop`. Follow Parts 1–4 in order, run commands only when the sheet asks, and review changes before choosing **Keep**.
 
 Run terminal commands from the **repo root**. Use the Codespaces commands or the Windows PowerShell alternatives for your laptop or DevBox.
 

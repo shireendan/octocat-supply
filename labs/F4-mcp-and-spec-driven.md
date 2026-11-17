@@ -37,7 +37,7 @@ Links are optional background; some examples use other languages or IDEs. Follow
 
 ## Before you start
 
-Complete the [setup checks](01-setup.md), then follow the cleanup and chat instructions below.
+Complete the [setup checks](01-setup.md) in **your own template-based repo** on `workshop`, then follow the cleanup and chat instructions below.
 
 Run terminal commands from the **repo root**. The Microsoft Learn HTTP MCP setup is the same in Codespaces and in VS Code on a Windows laptop or DevBox.
 
@@ -161,7 +161,7 @@ From the repo root, use the commands for your environment:
 
 > **Agent missing from the picker, or it says it can't edit files or run tests?** Choose **Agent** and put the role in front of the same prompt, for example `Act as a TDD red-phase agent: only write tests, never the feature.` or `Act as a TDD green-phase agent: write the smallest code that passes the tests, and don't change the tests.`
 
-> **No answer key on `main` this time.** Your spec and your tests *are* the answer key. That's the point of spec-driven development.
+> **No answer key on `reference_solution` this time.** Your spec and your tests *are* the answer key. That's the point of spec-driven development.
 
 ✅ The tests pass, every acceptance criterion has a test, and the endpoint is in Swagger.
 

@@ -33,7 +33,7 @@ Links are optional Microsoft Learn references; follow the exercises below for th
 
 ## Before you start
 
-Complete the [setup checks](01-setup.md). Keep the same model for the before/after comparison so you can focus on what the agent configuration changes.
+Complete the [setup checks](01-setup.md) and continue in **your own template-based repo** on `workshop`. Keep the same model for the before/after comparison so you can focus on what the agent configuration changes.
 
 ---
 
@@ -77,15 +77,17 @@ Fill in .github/agents/api-specialist.agent.md as a custom agent for this reposi
    - error handling?
 
 ### A5. Compare with the original (⏱ 6 min)
+Compare with `reference_solution` in **your own repo**, copied when you selected **Include all branches**:
+
 ```bash
 git add .github/agents/api-specialist.agent.md
-git diff origin/main -- .github/agents/api-specialist.agent.md
+git diff origin/reference_solution -- .github/agents/api-specialist.agent.md
 ```
-Or open the file on branch `main` on GitHub.
+Or open the file on branch `reference_solution` in your repo on GitHub.
 
 The original is 140 lines, so yours is shorter, and that's fine. What does the original have that yours doesn't (for example "when to use", example scenarios, tips)? Copy one idea you like into your version.
 
-**Catch up:** `git checkout origin/main -- .github/agents/api-specialist.agent.md`
+**Catch up:** `git checkout origin/reference_solution -- .github/agents/api-specialist.agent.md`
 
 ✅ Same model, same prompt, but a different (better) plan. The difference is the agent file.
 

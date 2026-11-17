@@ -2,7 +2,19 @@
 
 Complete setup before F1. You need repo access and a GitHub account with a working Copilot licence.
 
-## 1. Choose your environment
+## 1. Create your own repository
+
+Use your own copy so your changes do not affect the shared workshop template.
+
+1. Sign in to GitHub and open the [participant template](https://github.com/shireendan/octocat-supply-participants).
+2. Select **Use this template > Create a new repository**. Do not fork or choose **Open in a codespace** here.
+3. Set **Owner** to your account or the organisation named by your facilitator, **Repository name** to `octocat-supply-participants`, and **Visibility** to **Private** unless instructed otherwise.
+4. Select **Include all branches**. You need both `workshop` and `reference_solution` for the labs.
+5. Select **Create repository from template**. In your new repo's branch selector, check that both branches exist, then select `workshop`.
+
+Below, replace `<YOUR-OWNER>` with the account or organisation you chose. Your repo is `https://github.com/<YOUR-OWNER>/octocat-supply-participants`; use it throughout the labs, not the shared template.
+
+## 2. Choose your environment
 
 Use **Windows DevBox/local** as the primary option, or **Codespaces** as the alternative. Complete one option, then check the app and Copilot below.
 
@@ -32,15 +44,15 @@ npm.cmd --version
 git --version
 ```
 
-Node should report `v24.x`. Then clone the `workshop` branch from the folder where you want your checkout:
+Node should report `v24.x`. Then clone **your new repo's** `workshop` branch from the folder where you want your checkout. Replace `<YOUR-OWNER>` before running:
 
 ```powershell
-git clone --branch workshop https://github.com/shireendan/octocat-supply.git
-Set-Location .\octocat-supply
+git clone --branch workshop "https://github.com/<YOUR-OWNER>/octocat-supply-participants.git"
+Set-Location .\octocat-supply-participants
 code .
 ```
 
-Already cloned? Open that checkout instead. Keep the **repo root** open in VS Code, with `app` and `labs` visible, and confirm the status bar shows `workshop`.
+Already cloned your own copy? Reuse that checkout. Keep the **repo root** open in VS Code, with `app` and `labs` visible, and confirm the status bar shows `workshop`. `git remote get-url origin` should show your account or organisation, not `shireendan`.
 
 #### Install dependencies and build
 
@@ -59,14 +71,22 @@ npm.cmd --prefix .\app\frontend run build
 
 Use this alternative if you cannot prepare the Windows environment. Node.js, Python and the other tools are provided automatically.
 
-1. Use the GitHub account with your Copilot licence to [open this repo in Codespaces](https://codespaces.new/shireendan/octocat-supply/tree/workshop).
-2. Keep branch `workshop`, choose at least **4 cores and 8 GB RAM**, then select **Create codespace**.
+1. On GitHub, open **your new repo**, not the shared template, and select branch `workshop`.
+2. Choose **Code > Codespaces** and create a codespace on `workshop`, using at least **4 cores and 8 GB RAM**. Use **New with options** if you need to choose the machine.
 3. Wait for `make -C app install && make -C app build` to finish installing dependencies and building the app.
 4. Confirm the status bar shows `workshop`.
 
-## 2. Check that the app runs
+## 3. Check that the app runs
 
 Use the commands for your chosen environment. No separate database server or `.env` file is needed.
+
+First, from the repo root in either environment, fetch the reference configuration:
+
+```bash
+git fetch origin reference_solution:refs/remotes/origin/reference_solution
+```
+
+This leaves your branch and files unchanged. If the branch is missing, use the [reference-file help](troubleshooting.md#get-the-reference-files).
 
 ### Local Node.js and npm
 
@@ -98,11 +118,28 @@ Use two PowerShell terminals at the repo root:
 
 Stop servers with **Ctrl+C** when finished. Next time, repeat only the startup commands, not installation.
 
-## 3. Check Copilot
+## 4. Check Copilot and learn the Chat controls
 
 1. Install or enable **GitHub Copilot** in local VS Code; Codespaces includes it.
-2. Sign in with your licensed GitHub account, open **Chat**, send `hi` and check that Copilot replies.
-3. Keep the default model and session type unless your facilitator says otherwise.
+2. Sign in with your licensed GitHub account. Open **Chat** with **Ctrl+Alt+I**, then select **New Chat (+)**.
+3. Find these controls around the chat input. Their position and labels can vary by VS Code version.
+
+| Control | Where to look | What it controls / workshop choice |
+|---|---|---|
+| **Session target / harness** | First selector below the input | The runtime running the session, not the model. Choose **Copilot** when available; keep the same target during the labs. This is separate from choosing Windows or Codespaces. |
+| **Agent / mode** | Agent picker or **Agent...** near the input | How Copilot works: **Ask**, **Agent** or **Plan**, explained below. Custom agents created in F2 appear in the agent picker too. |
+| **Model and reasoning effort** | Model name inside or below the input | Which model answers and how much reasoning it uses. Keep **Auto** or the approved default; use the same model for before/after comparisons. A context-size number is not another model. |
+| **Permissions** | Permissions selector, sometimes inside the mode menu | Which tool actions need approval. Use **Manual permissions** when available, or your organisation's required settings. Review requests; do not enable **Allow all** or **Autopilot**. |
+
+- **Ask:** answer questions and inspect code with read-only tools, without changing files.
+- **Agent:** edit files and use tools to carry out the requested task. Some versions also show **Interactive** as the working mode; that does not make the session read-only.
+- **Plan:** research and propose an approach before implementation. Choose **Plan**, or use `/plan` where offered. Do not approve implementation when a lab asks for a plan only.
+
+Select **Ask** in the agent picker for question-only steps, even if a separate mode control says **Interactive**. If a required control is missing, ask a facilitator. **New Chat** clears conversation context, not your files; use **Add Context** or `#` to attach files the prompt depends on.
+
+**Try it once in Ask:** send `Which folders contain the API and frontend? Do not change any files.` Expect `app/api` and `app/frontend`, with no file edits. For later Agent tasks, inspect tool calls and changed files before choosing **Keep** or **Undo**.
+
+Optional reference: [VS Code Chat guide](https://code.visualstudio.com/docs/chat/chat-overview).
 
 **Ready?** Continue to [F1: Prompting Fundamentals](F1-prompting-fundamentals.md).
 

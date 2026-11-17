@@ -13,16 +13,17 @@ Our shared application is **OctoCAT Supply**, a sample supply-chain app, not a P
 ## Start here
 
 1. Sign in with the GitHub account that has your Copilot license and access to this repo.
-2. Use **native Windows Node.js/npm on your DevBox or laptop** as the primary option. GitHub Codespaces is the alternative if you cannot prepare that environment.
-3. Follow the [setup guide](./labs/01-setup.md) to install tools, prepare your workspace, run the app and check Copilot before F1.
-4. Open the [labs README](./labs/README.md) for the schedule and context on how the exercises work.
+2. [Create your own repository from the participant template](./labs/01-setup.md#1-create-your-own-repository), named `octocat-supply-participants`. Select **Include all branches**.
+3. Use **native Windows Node.js/npm on your DevBox or laptop** as the primary option. GitHub Codespaces is the alternative if you cannot prepare that environment.
+4. Follow the [setup guide](./labs/01-setup.md) to install tools, open **your own repo**, run the app and learn the Chat controls before F1.
+5. Open the [labs README](./labs/README.md) for the schedule and context on how the exercises work.
 
 ## Environment options
 
 - **Option 1 - Windows DevBox/local (recommended):** run Node.js/npm directly on a Windows DevBox or laptop, using VS Code, Git and Node.js **24.x** (npm included). Follow the [Windows setup](./labs/01-setup.md#option-a-local-nodejs-and-npm-windows), including [Node.js and Python installation](./labs/01-setup.md#install-nodejs-and-python). No Docker or `make` is required.
 - **Option 2 - GitHub Codespaces:** follow the [Codespaces setup](./labs/01-setup.md#option-b-github-codespaces) for a cloud workspace with tools, dependencies and builds prepared automatically.
 
-  [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1)
+  Create the Codespace from **your own generated repo** on `workshop`, not from the shared template.
 
 Both options use the same app and labs, with **3000** for the API and **5137** for the website. Codespaces uses forwarded URLs; local users open `localhost`. The local instructions use Windows PowerShell and npm commands instead of the labs' `make` shortcuts.
 
@@ -34,8 +35,10 @@ Complete the app and Copilot checks before the training. Both options require re
 
 ## Branches
 
+Your generated repo includes these branches when you select **Include all branches**:
+
 - **`workshop`:** where you work during the labs.
-- **`main`:** the complete app and reference solution you'll compare with. Never commit to `main`.
+- **`reference_solution`:** reference Copilot configuration for F2/F3, not finished F1/F4 features. Compare selected files; keep your work on `workshop`.
 
 ## What we'll do together
 

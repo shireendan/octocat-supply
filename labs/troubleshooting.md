@@ -18,7 +18,9 @@ You do not need to read this guide before starting. Use the relevant section if 
 | npm reports `unable to get local issuer certificate`, SSL/TLS or proxy errors | Follow [enterprise certificate trust](#enterprise-certificate-trust), then ask IT about remaining CA-chain, proxy or package-mirror requirements. |
 | npm warns that the Node engine is unsupported | Use the [Node 24 baseline](01-setup.md#install-nodejs-and-python). Do not change dependencies or remove lockfiles just to suppress the warning. |
 | `npm ci` reports a missing or out-of-sync lockfile | Check that you opened the intended `workshop` checkout. Keep the lockfiles and share the full error with a facilitator. |
-| Only `main` is listed / no `origin` | See [branch recovery](#recovery-workshop-branch-missing). |
+| Only `reference_solution` is listed / no `origin` | See [branch recovery](#recovery-workshop-branch-missing). |
+| `reference_solution` is missing | Your template copy needed **Include all branches**. Keep your work and see [reference-file help](#get-the-reference-files). |
+| `origin` points to the shared template | Keep any local work and ask a facilitator before changing remotes. The labs use your own generated repo. |
 | Products do not load, but the website opens | Keep both the API and frontend terminals running. Check http://localhost:3000/api/products in a browser on the machine running the app. A successful earlier Swagger request does not mean the API is still running. |
 | Port 3000 is not listed in Codespaces | Start the API and wait for `Server is running on port 3000`. Local Windows users open http://localhost:3000/api-docs directly. |
 | The browser shows 502 on a Codespaces port | Wait for server startup, then refresh. Check the terminal for an error if it persists. |
@@ -87,10 +89,10 @@ See the [node-gyp installation requirements](https://github.com/nodejs/node-gyp#
 
 Already on `workshop`? Skip this section.
 
-In the workspace terminal, run `git remote get-url origin`. Only if it reports **No such remote** and `git status --short` is empty, run:
+In the workspace terminal, run `git remote get-url origin`. Only if it reports **No such remote** and `git status --short` is empty, run the following, replacing `<YOUR-OWNER>` with the owner of **your generated repo**:
 
 ```bash
-git remote add origin https://github.com/shireendan/octocat-supply.git
+git remote add origin "https://github.com/<YOUR-OWNER>/octocat-supply-participants.git"
 git fetch origin
 git switch --track origin/workshop
 ```
@@ -129,27 +131,29 @@ The initial setup uses `ci` to replace installed dependencies with the locked ve
 
 ## Get the reference files
 
-Fetch once for local compare/catch-up commands. Viewing `main` on GitHub needs no fetch, and fetching leaves your working files unchanged:
+In your template-generated repo, `origin` points to your own account or organisation. Fetch once for local compare/catch-up commands; this also works when a Codespace initially fetched only `workshop`. Fetching leaves your working files unchanged:
 
 ```bash
-git fetch origin main
+git fetch origin reference_solution:refs/remotes/origin/reference_solution
 ```
+
+If Git says the remote branch is missing, you may have skipped **Include all branches** when creating your repo. Keep your work and ask a facilitator; do not reset or recreate it. You can still [view the template's reference files](https://github.com/shireendan/octocat-supply-participants/tree/reference_solution) on GitHub.
 
 Replace `<file>` below with the file's path. **Catch up overwrites that file's edits; save a copy first.**
 
 | I want to… | Do this |
 |---|---|
-| View a reference file | `git show origin/main:<file>` or view it on GitHub's `main` branch |
-| Compare a file I **edited** | `git diff origin/main -- <file>` |
-| Compare a file I **re-created** | `git add <file>` then `git diff origin/main -- <file>` |
-| Compare side by side (Codespaces Bash) | `git show origin/main:<file> > /tmp/ref.md && code --diff /tmp/ref.md <file>` |
-| Catch up (take the reference version) | `git checkout origin/main -- <file>` |
+| View a reference file | `git show origin/reference_solution:<file>` or view it on your repo's `reference_solution` branch on GitHub |
+| Compare a file I **edited** | `git diff origin/reference_solution -- <file>` |
+| Compare a file I **re-created** | `git add <file>` then `git diff origin/reference_solution -- <file>` |
+| Compare side by side (Codespaces Bash) | `git show origin/reference_solution:<file> > /tmp/ref.md && code --diff /tmp/ref.md <file>` |
+| Catch up (take the reference version) | `git checkout origin/reference_solution -- <file>` |
 
 For side-by-side comparison in Windows PowerShell, replace `<file>` in both lines:
 
 ```powershell
 $reference = Join-Path $env:TEMP 'octocat-reference.md'
-git show origin/main:<file> | Set-Content -Path $reference -Encoding utf8
+git show origin/reference_solution:<file> | Set-Content -Path $reference -Encoding utf8
 code --diff $reference <file>
 ```
 
@@ -167,14 +171,11 @@ These commands only display installed versions. You do not need to record them f
 
 ## Copilot controls and lab ground rules
 
-- **Ask:** use it for questions without editing files. In Chat, start a new chat, click **+**, then **Agent...**, then **Ask**.
-- **Agent:** can edit files and run tools; it opens by default in a new chat.
-- **Plan:** click the message icon at the bottom of Chat and choose **Plan**.
-- Keep the default model and session type unless your facilitator says otherwise.
+- Use the [Chat-controls overview in setup](01-setup.md#4-check-copilot-and-learn-the-chat-controls) for the session target, Ask/Agent/Plan, model and permissions.
 - Work on `workshop`. Do not commit or push unless a lab tells you to.
 - Review changes before choosing **Keep**; use **Undo** to reject them.
 - Ignore generated `.agent.log` and `.agent-audit/` logs. Automatic checkpoint commits are disabled.
 
 ## Returning to Codespaces
 
-Use the [resume link](https://codespaces.new/shireendan/octocat-supply/tree/workshop?quickstart=1) or [your codespaces](https://github.com/codespaces). Browser and desktop VS Code both work.
+Open [your codespaces](https://github.com/codespaces) and resume the one belonging to **your own repo**. To create another, follow the [Codespaces setup](01-setup.md#option-b-github-codespaces) from that repo, not from the shared template. Browser and desktop VS Code both work.
