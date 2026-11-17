@@ -225,9 +225,10 @@ Bringing your own repository? Create two pieces of reusable context for your tea
 - Choose a real team convention and a small, repeatable workflow. Use your own project's standards, paths and commands, not OctoCAT's fictional TAO rule.
 - Replace every `<placeholder>` below. Keep the same model for before/after comparisons.
 
-### Part A: Create your repository's Copilot instructions
+## Part A: Create your repository's Copilot instructions
 
-**A1. Get a baseline answer.** Pick a small task where a team convention matters, such as handling an error, adding a data transformation or changing a shared component. Start a new chat, choose **Ask**, and send:
+### A1. Get a baseline answer
+Pick a small task where a team convention matters, such as handling an error, adding a data transformation or changing a shared component. Start a new chat, choose **Ask**, and send:
 ```
 How should I <SMALL TASK> in <AREA OF THIS REPOSITORY>?
 Point to the relevant files and suggest an approach in at most 5 bullets.
@@ -235,7 +236,8 @@ Don't write code, edit files or run commands.
 ```
 Keep the answer. Does it follow your team's conventions, or offer generic advice?
 
-**A2. Draft the instructions.** In a new chat, choose **Agent**, attach any existing team guidance, and send:
+### A2. Draft the instructions
+In a new chat, choose **Agent**, attach any existing team guidance, and send:
 ```
 Create .github/copilot-instructions.md for this repository.
 If it already exists, preserve its useful rules and make only the additions needed below.
@@ -252,14 +254,16 @@ Only edit .github/copilot-instructions.md. Don't run commands or change applicat
 
 Review the file before choosing **Keep**. Check a few paths and commands yourself. Remove guesses, irrelevant boilerplate and duplicated documentation. These instructions should describe what is true for your repository, not a generic project template.
 
-**A3. Add one real team rule.** Write a short, actionable rule in the instructions file. For example:
+### A3. Add one real team rule
+Write a short, actionable rule in the instructions file. For example:
 - Use an existing shared error handler rather than creating another one.
 - Reuse a particular component or validation helper.
 - Put new schema changes in new migration files rather than editing old migrations.
 
 Name the actual helper, pattern or location in your project and link to an existing example. Only include a rule that your team really follows and that applies broadly; detailed steps for one workflow belong in the skill below.
 
-**A4. Compare the behaviour.** Start a **new chat**, choose **Ask**, and send the **exact A1 prompt** again without repeating the new rule.
+### A4. Compare the behaviour
+Start a **new chat**, choose **Ask**, and send the **exact A1 prompt** again without repeating the new rule.
 
 Check:
 - Does the answer now use your team's convention and point to real code?
@@ -270,9 +274,10 @@ If the rule was missed, check the file's location and wording and try a fresh ch
 
 **Done when:** your repository instructions are concise, grounded in your project and demonstrably useful for the chosen task.
 
-### Part B: Create a new skill for a repeatable workflow
+## Part B: Create a new skill for a repeatable workflow
 
-**B1. Choose a workflow, not another role.** Think of a task with several repeatable steps that someone on your team might otherwise explain each time.
+### B1. Choose a workflow, not another role
+Think of a task with several repeatable steps that someone on your team might otherwise explain each time.
 
 | Your area | Example workflow | Possible output |
 |---|---|---|
@@ -290,7 +295,8 @@ Write down:
 
 Keep the first version small. Choose a safe example you can inspect yourself; do not start with deployment, production data or a workflow requiring new credentials.
 
-**B2. Create the skill file.** Choose an unused lowercase, hyphenated name, such as `change-checklist`. In a new chat, choose **Agent**, attach your workflow notes and relevant examples, and send:
+### B2. Create the skill file
+Choose an unused lowercase, hyphenated name, such as `change-checklist`. In a new chat, choose **Agent**, attach your workflow notes and relevant examples, and send:
 ```
 Create .github/skills/<skill-name>/SKILL.md for <WORKFLOW> in this repository.
 Use my attached workflow notes and the repository's existing conventions.
@@ -319,9 +325,11 @@ Check that:
 - The body explains the workflow, not just the role of a helpful assistant.
 - Its paths, commands and output checks are real and consistent with your repository instructions.
 
-**B3. Check discovery.** Open the Skills list using the same controls as the main lab, or type `/` in Chat and look for the new skill. If it is missing, check the file location and frontmatter before continuing.
+### B3. Check discovery
+Open the Skills list using the same controls as the main lab, or type `/` in Chat and look for the new skill. If it is missing, check the file location and frontmatter before continuing.
 
-**B4. Try the workflow on your own example.** Start a new chat in **Agent** mode and make a natural request matching your description. Do not attach the skill at first, so you can check whether Copilot discovers it:
+### B4. Try the workflow on your own example
+Start a new chat in **Agent** mode and make a natural request matching your description. Do not attach the skill at first, so you can check whether Copilot discovers it:
 ```
 I need to <WORKFLOW TASK> for <SMALL EXAMPLE>.
 Use <RELEVANT FILES OR REQUIREMENTS> as the input.
@@ -333,7 +341,8 @@ Look for the skill being loaded in references or tool calls. If it is not select
 
 Compare the result with your workflow notes. Did it follow the steps, use the right inputs, ask about missing information and produce the expected output? Refine one weak step and repeat.
 
-**B5. Verify the result.** A convincing response is not enough: inspect the cited files and check the output against your completion criteria. This first walkthrough does not prove that a code-changing or command-running workflow executes correctly. If you later test execution, agree a small scope on your working branch, review each change and use your project's existing checks.
+### B5. Verify the result
+A convincing response is not enough: inspect the cited files and check the output against your completion criteria. This first walkthrough does not prove that a code-changing or command-running workflow executes correctly. If you later test execution, agree a small scope on your working branch, review each change and use your project's existing checks.
 
 **Done when:** the skill is discoverable, its workflow can be followed on a bounded example, and you have checked the result rather than just accepting its summary.
 

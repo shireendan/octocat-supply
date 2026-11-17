@@ -178,9 +178,10 @@ Bringing your own repository? Build the same two kinds of agent for your work: a
 - Choose unused agent names. The examples below use `project-specialist` and `my-reviewer`; change the names and paths if they already exist.
 - Replace every `<placeholder>` with your own information. Keep the same model when comparing answers.
 
-### Part A: A repository agent for your team
+## Part A: A repository agent for your team
 
-**A1. Choose its job.** Think of a responsibility that should be handled consistently by anyone working in this repository. Keep the role focused, rather than creating an agent that does everything.
+### A1. Choose its job
+Think of a responsibility that should be handled consistently by anyone working in this repository. Keep the role focused, rather than creating an agent that does everything.
 
 | Your area | Example repository agent | Knowledge it should use |
 |---|---|---|
@@ -189,7 +190,8 @@ Bringing your own repository? Build the same two kinds of agent for your work: a
 | Frontend | UI Specialist | Shared components, accessibility and interaction patterns |
 | Platform or automation | Automation Specialist | Existing scripts, configuration, safe defaults and verification steps |
 
-**A2. Get a baseline plan.** Start a new chat, choose the built-in **Agent**, and send:
+### A2. Get a baseline plan
+Start a new chat, choose the built-in **Agent**, and send:
 ```
 I want to add <SMALL FEATURE> so that <USER> can <BENEFIT>.
 Reply with a plan only: the relevant files, existing patterns to reuse, important risks and how to verify the change.
@@ -197,7 +199,8 @@ Don't implement anything, edit files or run commands.
 ```
 Keep the answer so you can compare it later.
 
-**A3. Create the workspace agent.** Use **Chat: New Custom Agent** in the Command Palette, choose **Workspace**, and name it `project-specialist`. The file belongs in `.github/agents/project-specialist.agent.md` in your repository.
+### A3. Create the workspace agent
+Use **Chat: New Custom Agent** in the Command Palette, choose **Workspace**, and name it `project-specialist`. The file belongs in `.github/agents/project-specialist.agent.md` in your repository.
 
 In a new chat with the built-in **Agent**, attach any existing team guidance or relevant code examples, then send:
 ```
@@ -214,7 +217,8 @@ Max 50 lines. Only edit this agent file, not application code.
 
 Review the file before choosing **Keep**. Are its rules useful to your team? Are the paths and conventions real? Change one rule yourself to make the role more precise. The tool list allows file changes when requested but leaves out terminal execution; instructions and tool permissions are different controls.
 
-**A4. Compare with the baseline.** Start a new chat, select your agent by its display name, and send the **exact A2 prompt** again using the same model.
+### A4. Compare with the baseline
+Start a new chat, select your agent by its display name, and send the **exact A2 prompt** again using the same model.
 
 Compare the two plans:
 - Does the specialist identify the right files and reuse your existing patterns?
@@ -227,13 +231,15 @@ There is no OctoCAT answer key for your repository. Judge the result against you
 
 **Done when:** your repository agent appears in the picker and gives a focused plan grounded in your project. Its configuration lives in the repository so it can be reviewed and shared through your team's normal process.
 
-### Part B: A personal agent for your own work
+## Part B: A personal agent for your own work
 
-**B1. Choose your review priorities.** Think of something you repeatedly check or explain in your role. For this exercise, make a **read-only reviewer** with two concrete checks, such as clear error messages, accessible controls, data validation or reliable retry behaviour.
+### B1. Choose your review priorities
+Think of something you repeatedly check or explain in your role. For this exercise, make a **read-only reviewer** with two concrete checks, such as clear error messages, accessible controls, data validation or reliable retry behaviour.
 
 Choose checks that matter to you across projects. Keep repository-specific rules in the team agent rather than hard-coding one project's paths into your personal agent.
 
-**B2. Create it in your user profile.** Use **Chat: New Custom Agent**, choose **User**, and name it `my-reviewer`. This keeps it in the active VS Code user profile on your laptop, DevBox or codespace, not in the repository. If **User** is unavailable, you can practise with **Workspace**, but that fallback is repository-scoped, not personal.
+### B2. Create it in your user profile
+Use **Chat: New Custom Agent**, choose **User**, and name it `my-reviewer`. This keeps it in the active VS Code user profile on your laptop, DevBox or codespace, not in the repository. If **User** is unavailable, you can practise with **Workspace**, but that fallback is repository-scoped, not personal.
 
 Replace the template with this, then fill in your role, area and checks:
 
@@ -253,7 +259,8 @@ When I ask for a review:
 5. Never edit files or run commands. If I ask for a fix, explain the proposed change instead.
 ```
 
-**B3. Try it on your code.** Open a file you understand, start a new chat, select **my-reviewer**, attach the file or selection, and send:
+### B3. Try it on your code
+Open a file you understand, start a new chat, select **my-reviewer**, attach the file or selection, and send:
 ```
 Review this code using my two checks.
 Explain the most important findings and point to the evidence.
@@ -261,7 +268,8 @@ Don't edit anything or run commands.
 ```
 Check the findings yourself. Are they specific, correct and useful? Refine one of your checks if the feedback is too generic.
 
-**B4. Test the boundary.** In the same chat, send:
+### B4. Test the boundary
+In the same chat, send:
 ```
 Fix the first finding.
 ```

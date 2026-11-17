@@ -47,9 +47,9 @@ Run terminal commands from the **repo root**. The Microsoft Learn HTTP MCP setup
 
 ---
 
-## Part 1: MCP setup (⏱ 8 min)
+## Part A: MCP setup (⏱ 8 min)
 
-### 1.1 Add the Microsoft Learn MCP server
+### A1. Add the Microsoft Learn MCP server
 1. Open the Command Palette (**Ctrl+Shift+P**) → **MCP: Add Server…** → **HTTP**.
 2. Paste `https://learn.microsoft.com/api/mcp` → name it `microsoft-learn` → **Workspace**.
 3. VS Code adds it to [.vscode/mcp.json](../.vscode/mcp.json). Start **only this server**. Leave OctoCAT's other entries alone: you don't need them for this lab.
@@ -62,10 +62,10 @@ Run terminal commands from the **repo root**. The Microsoft Learn HTTP MCP setup
 > }
 > ```
 
-### 1.2 Check it
+### A2. Check it
 click on **+**, click on **Agent...**, choose **Configure Custom Agents**, and open **Tools**. Find `microsoft_docs_search` and `microsoft_docs_fetch` in the list.
 
-### 1.3 Use it
+### A3. Use it
 Start a new chat (opens Agent mode by default) and send:
 ```
 Using Microsoft Learn, summarise REST API guidance on status codes and pagination, with links.
@@ -82,7 +82,7 @@ Max 6 bullets. Don't edit any files.
 
 ---
 
-## Part 2: Spec-driven development (⏱ 19 min)
+## Part B: Spec-driven development (⏱ 19 min)
 
 OctoCAT comes with three custom agents that work as a team:
 
@@ -92,7 +92,7 @@ OctoCAT comes with three custom agents that work as a team:
 | [**tdd-red**](../.github/agents/tdd-red.agent.md) | Writes the tests from the plan and runs them. They must **fail**, because the feature doesn't exist yet | Write the feature |
 | [**tdd-green**](../.github/agents/tdd-green.agent.md) | Writes the **smallest** code that makes the tests pass, and runs them | Add anything the tests don't ask for |
 
-### 2.1 Spec (⏱ 3 min)
+### B1. Spec (⏱ 3 min)
 In the same chat, choose **tdd-planner** in the agent picker and send:
 ```
 Add an endpoint that returns all orders for a given branch ID.
@@ -102,19 +102,19 @@ Add an endpoint that returns all orders for a given branch ID.
 
 > **No file in `app/docs/tdd-plans/`?** Choose **Agent** and send: `Save that plan as app/docs/tdd-plans/orders-by-branch.md. Don't change anything else.`
 
-### 2.2 Review against Learn (⏱ 3 min)
+### B2. Review against Learn (⏱ 3 min)
 In the same chat, choose **Agent** and send:
 ```
 Review that plan against the Learn guidance. Suggest at most three changes to the acceptance criteria. Don't write code.
 ```
 Typical suggestions: what to return for a branch that doesn't exist (404, or 200 with an empty list?), what to do with an invalid ID (400), and whether to add pagination.
 
-### 2.3 Human check (⏱ 3 min)
+### B3. Human check (⏱ 3 min)
 Open the plan file and **edit it by hand**: accept or reject each suggestion. Change the acceptance criteria and their tests together, and save.
 
 **This is the core lesson of spec-driven development:** you change the *spec*, not the code. The agents build whatever the spec says, so the spec is where your judgement goes.
 
-### 2.4 Red: tests first (⏱ 4 min)
+### B4. Red: tests first (⏱ 4 min)
 In the same chat, choose **tdd-red** and send (replace `<plan-file>.md` with your saved plan's filename):
 ```
 Implement the failing tests for the plan in app/docs/tdd-plans/<plan-file>.md. Use the file, because I edited it. Only create test files, then run them.
@@ -126,7 +126,7 @@ If the agent needs help running tests, use the [single-run API test command refe
 
 > **About the buttons:** the agents may show buttons such as **Write Red Tests** and **Write Green Implementation**. They switch agents and send the prompt for you, but only in the *Local* session type, and they send the plan from the *chat*, not your edited file. That's why we use the agent picker and name the file.
 
-### 2.5 Green: make them pass (⏱ 4 min)
+### B5. Green: make them pass (⏱ 4 min)
 In the same chat, choose **tdd-green** and send, using the same filename:
 ```
 Implement the code to make these tests pass, using app/docs/tdd-plans/<plan-file>.md as the spec.
@@ -136,7 +136,7 @@ Review every change with **Keep** or **Undo**:
 - Which files did it change? Did it add the route next to the other order routes?
 - Did it touch the test file? It shouldn't have.
 
-### 2.6 Verify (⏱ 2 min)
+### B6. Verify (⏱ 2 min)
 From the repo root, use the commands for your environment:
 
 | Task | Codespaces | Windows PowerShell |
@@ -193,9 +193,9 @@ Bringing your own repository? Connect Microsoft Learn as a source of technical g
 - Check that the relevant existing tests run successfully before starting. Use your project's documented tools and shell; if there is no test setup, agree an approach with your team rather than installing a new framework without review.
 - Replace every `<placeholder>` below. Your repository does not need OctoCAT's `tdd-planner`, `tdd-red` or `tdd-green` agents: the prompts below use the built-in **Plan** and **Agent** modes.
 
-### Part 1: Connect Microsoft Learn MCP in your repository
+## Part A: Connect Microsoft Learn MCP in your repository
 
-**1.1 Add or reuse the server.**
+### A1. Add or reuse the server
 1. Open the Command Palette with **Ctrl+Shift+P** and choose **MCP: Add Server...**.
 2. Choose **HTTP** and enter `https://learn.microsoft.com/api/mcp`.
 3. Name it `microsoft-learn` and choose **Workspace** so the configuration is associated with your repository. If that server is already configured, reuse it rather than adding a duplicate.
@@ -203,9 +203,11 @@ Bringing your own repository? Connect Microsoft Learn as a source of technical g
 
 This is a remote HTTP server: the setup is the same in Codespaces and local VS Code, with local MCP package to install.
 
-**1.2 Confirm the tools are available.** Open Chat's tool configuration using the controls from Part 1 of the main lab. Look for `microsoft_docs_search` and `microsoft_docs_fetch`, and make sure they are available to the chat.
+### A2. Confirm the tools are available
+Open Chat's tool configuration using the controls from Part 1 of the main lab. Look for `microsoft_docs_search` and `microsoft_docs_fetch`, and make sure they are available to the chat.
 
-**1.3 Find guidance relevant to your feature.** Start a new chat in **Agent** mode and send:
+### A3. Find guidance relevant to your feature
+Start a new chat in **Agent** mode and send:
 ```
 Use the Microsoft Learn MCP tools to find guidance on <TECHNICAL TOPIC RELEVANT TO MY FEATURE>.
 Summarise the guidance in at most 6 bullets with source links.
@@ -219,11 +221,12 @@ Expand the tool call and open a cited source. Did the tools actually run, and do
 
 **Done when:** a Microsoft Learn tool call returns useful guidance with sources you have checked. Keep this chat open for the specification work.
 
-### Part 2: Specify, test and implement your feature
+## Part B: Specify, test and implement your feature
 
 Use the same chat for the following steps, switching between **Plan** and **Agent** as directed. The saved specification, not an earlier chat draft, will be the source of truth.
 
-**2.1 Draft the specification.** Choose **Plan** and send:
+### B1. Draft the specification
+Choose **Plan** and send:
 ```
 Specify <SMALL FEATURE> for this repository so that <USER> can <BENEFIT>.
 Inspect the existing code and use the relevant Microsoft Learn guidance already discussed.
@@ -239,7 +242,8 @@ Return the specification only. Don't edit files, implement code or run terminal 
 ```
 Read it as a product and engineering decision, not just a list of files. Are the expected results precise enough that you could judge a test as passing or failing?
 
-**2.2 Review, decide and save.** Switch to **Agent** and send:
+### B2. Review, decide and save
+Switch to **Agent** and send:
 ```
 Review this draft against the Microsoft Learn sources and this repository's conventions.
 Suggest at most three improvements to the acceptance criteria and their test cases.
@@ -255,7 +259,8 @@ Only create or update that specification file. Don't implement the feature or wr
 ```
 Open the saved file, make any final corrections by hand and save it. Use this exact path in the next prompts.
 
-**2.3 Red: write tests before implementation.** Stay in **Agent** and send:
+### B3. Red: write tests before implementation
+Stay in **Agent** and send:
 ```
 Act as a TDD red-phase agent.
 Read <SPEC_FILE> from disk; I may have edited it since the chat draft.
@@ -268,7 +273,8 @@ Don't deploy, commit or push.
 
 Review the tests and the actual failure output. Do the assertions express your agreed behaviour? A missing tool, dependency or invalid test command is a setup problem, not the expected red result. Resolve that before continuing, without weakening the feature's tests.
 
-**2.4 Green: implement only the agreed behaviour.** Stay in **Agent** and send:
+### B4. Green: implement only the agreed behaviour
+Stay in **Agent** and send:
 ```
 Act as a TDD green-phase agent.
 Implement the smallest change that satisfies <SPEC_FILE> and the tests just written.
@@ -282,7 +288,7 @@ Don't deploy, commit or push.
 
 Review every change before choosing **Keep**. Check that the agent did not make tests pass by deleting assertions, changing expected results or broadening the scope.
 
-**2.5 Verify the feature yourself.**
+### B5. Verify the feature yourself
 1. Run the relevant tests yourself using the commands verified for your project. Run any additional affected checks or build required by your team's workflow.
 2. Try the manual scenario in the specification through your project's actual interface: a screen, API request, script, command or data-processing result.
 3. Check each acceptance criterion against its test and observed result. Include the relevant invalid-input, empty-result or other edge cases you agreed.
